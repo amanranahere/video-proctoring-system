@@ -20,7 +20,9 @@ export default function InfoBox() {
         <span className="text-[#7a7a7a] font-semibold uppercase text-sm font-mono">
           Duration
         </span>
-        <h2 className="text-lg lg:text-2xl font-semibold">{duration}</h2>
+        <h2 className="text-lg lg:text-2xl font-semibold">
+          {duration} minutes
+        </h2>
       </div>
     </div>
   );
