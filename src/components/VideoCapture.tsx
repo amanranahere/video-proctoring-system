@@ -159,24 +159,24 @@ export default function VideoCapture() {
         }
 
         // draw landmarks
-        if (faces.length > 0) {
-          // console.log("Faces detected: ", faces.length);
-          canvasCtx.fillStyle = "lime";
+        // if (faces.length > 0) {
+        //   // console.log("Faces detected: ", faces.length);
+        //   canvasCtx.fillStyle = "lime";
 
-          results.multiFaceLandmarks.forEach((landmarks: any) => {
-            landmarks.forEach((point: any) => {
-              canvasCtx.beginPath();
-              canvasCtx.arc(
-                point.x * videoWidth,
-                point.y * videoHeight,
-                1.5,
-                0,
-                2 * Math.PI
-              );
-              canvasCtx.fill();
-            });
-          });
-        }
+        //   results.multiFaceLandmarks.forEach((landmarks: any) => {
+        //     landmarks.forEach((point: any) => {
+        //       canvasCtx.beginPath();
+        //       canvasCtx.arc(
+        //         point.x * videoWidth,
+        //         point.y * videoHeight,
+        //         1.5,
+        //         0,
+        //         2 * Math.PI
+        //       );
+        //       canvasCtx.fill();
+        //     });
+        //   });
+        // }
       });
       startVideo();
     };
