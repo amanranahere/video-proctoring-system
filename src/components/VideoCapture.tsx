@@ -1,7 +1,8 @@
 "use client";
 
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { VideoOff } from "lucide-react";
+import { useLogStore } from "@/store/logStore";
 
 import * as tf from "@tensorflow/tfjs";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
@@ -35,6 +36,8 @@ export default function VideoCapture() {
   const lastObjectWarningRef = useRef<{ [key: string]: number }>({});
 
   const [error, setError] = useState<string | null>(null);
+
+  const addLog = useLogStore((state) => state.addLog);
 
   useEffect(() => {
     if (!videoRef.current || !canvasRef.current) return;
@@ -90,7 +93,12 @@ export default function VideoCapture() {
 
           // multiple faces rule
           if (faces.length > 1 && !multiFaceWarningIssuedRef.current) {
-            console.warn(`[${getTimeStamp()}] Multiple faces detected!`);
+            // console.warn(`[${getTimeStamp()}] Multiple faces detected!`);
+            addLog({
+              rule: "Multiple faces detected!",
+              deduction: -7,
+              time: getTimeStamp(),
+            });
             multiFaceWarningIssuedRef.current = true;
           } else if (faces.length === 1) {
             multiFaceWarningIssuedRef.current = false;
@@ -116,9 +124,14 @@ export default function VideoCapture() {
                 const elapsed =
                   (Date.now() - lookingAwayStartRef.current) / 1000;
                 if (elapsed >= 5 && !lookingAwayWarningIssuedRef.current) {
-                  console.warn(
-                    `[${getTimeStamp()}] Candidate not looking at the screen!`
-                  );
+                  // console.warn(
+                  //   `[${getTimeStamp()}] Candidate not looking at the screen!`
+                  // );
+                  addLog({
+                    rule: "Looking away from the screen!",
+                    deduction: -3,
+                    time: getTimeStamp(),
+                  });
                   lookingAwayWarningIssuedRef.current = true;
                 }
               }
@@ -131,9 +144,14 @@ export default function VideoCapture() {
           // no face detected rule
           const elapsed = (Date.now() - lastFaceSeenRef.current) / 1000;
           if (elapsed >= 10 && !faceWarningIssuedRef.current) {
-            console.warn(
-              `[${getTimeStamp()}] No face detected for 10 seconds!`
-            );
+            // console.warn(
+            //   `[${getTimeStamp()}] No face detected!`
+            // );
+            addLog({
+              rule: "Face not detected!",
+              deduction: -5,
+              time: getTimeStamp(),
+            });
             faceWarningIssuedRef.current = true;
           }
 
@@ -222,19 +240,34 @@ export default function VideoCapture() {
 
                         if (now - lastWarn > 10000) {
                           if (p.class === "cell phone") {
-                            console.warn(
-                              `[${getTimeStamp()}] Mobile phone detected!`
-                            );
+                            // console.warn(
+                            //   `[${getTimeStamp()}] Mobile phone detected!`
+                            // );
+                            addLog({
+                              rule: "Mobile phone detected!",
+                              deduction: -10,
+                              time: getTimeStamp(),
+                            });
                           }
                           if (p.class === "book") {
-                            console.warn(
-                              `[${getTimeStamp()}] Book/Notes detected!`
-                            );
+                            // console.warn(
+                            //   `[${getTimeStamp()}] Book/Notes detected!`
+                            // );
+                            addLog({
+                              rule: "Book/Notes detected!",
+                              deduction: -5,
+                              time: getTimeStamp(),
+                            });
                           }
                           if (p.class === "laptop") {
-                            console.warn(
-                              `[${getTimeStamp()}] Extra device detected!`
-                            );
+                            // console.warn(
+                            //   `[${getTimeStamp()}] Extra device detected!`
+                            // );
+                            addLog({
+                              rule: "Extra device detected!",
+                              deduction: -8,
+                              time: getTimeStamp(),
+                            });
                           }
 
                           lastObjectWarningRef.current[p.class] = now;
