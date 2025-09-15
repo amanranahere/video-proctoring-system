@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { VideoOff } from "lucide-react";
 
 import * as tf from "@tensorflow/tfjs";
@@ -14,10 +14,26 @@ declare global {
   }
 }
 
+function getTimeStamp(): string {
+  const now = new Date();
+  return now.toLocaleTimeString();
+}
+
 export default function VideoCapture() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
   const objectModelRef = useRef<cocoSsd.ObjectDetection | null>(null);
+
+  const lastFaceSeenRef = useRef<number>(Date.now());
+  const faceWarningIssuedRef = useRef(false);
+  const multiFaceWarningIssuedRef = useRef(false);
+
+  const initialNoseXRef = useRef<number | null>(null);
+  const lookingAwayStartRef = useRef<number | null>(null);
+  const lookingAwayWarningIssuedRef = useRef(false);
+  const lastObjectWarningRef = useRef<{ [key: string]: number }>({});
+
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,8 +42,9 @@ export default function VideoCapture() {
     let animationId: number;
     let faceMesh: any;
 
-    // ----- LOAD FACE DETECTION MODEL -----
-
+    // ----------------------
+    // Load Face Detection Model (via CDN)
+    // ----------------------
     const script = document.createElement("script");
     script.src =
       "https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js";
@@ -64,9 +81,68 @@ export default function VideoCapture() {
         // draw canvas
         canvasCtx.drawImage(videoRef.current, 0, 0, videoWidth, videoHeight);
 
+        // face detection rules
+        const faces = results.multiFaceLandmarks || [];
+
+        if (faces.length > 0) {
+          lastFaceSeenRef.current = Date.now();
+          faceWarningIssuedRef.current = false;
+
+          // multiple faces rule
+          if (faces.length > 1 && !multiFaceWarningIssuedRef.current) {
+            console.warn(`[${getTimeStamp()}] Multiple faces detected!`);
+            multiFaceWarningIssuedRef.current = true;
+          } else if (faces.length === 1) {
+            multiFaceWarningIssuedRef.current = false;
+          }
+
+          // looking away rule
+          const noseTip = faces[0]?.[1];
+          if (noseTip) {
+            const noseX = noseTip.x;
+
+            if (initialNoseXRef.current === null) {
+              initialNoseXRef.current = noseX;
+            }
+
+            if (initialNoseXRef.current !== null) {
+              const deviation = Math.abs(noseX - initialNoseXRef.current);
+              const threshold = 0.1;
+
+              if (deviation > threshold) {
+                if (!lookingAwayStartRef.current) {
+                  lookingAwayStartRef.current = Date.now();
+                }
+                const elapsed =
+                  (Date.now() - lookingAwayStartRef.current) / 1000;
+                if (elapsed >= 5 && !lookingAwayWarningIssuedRef.current) {
+                  console.warn(
+                    `[${getTimeStamp()}] Candidate not looking at the screen!`
+                  );
+                  lookingAwayWarningIssuedRef.current = true;
+                }
+              }
+            } else {
+              lookingAwayStartRef.current = null;
+              lookingAwayWarningIssuedRef.current = false;
+            }
+          }
+        } else {
+          // no face detected rule
+          const elapsed = (Date.now() - lastFaceSeenRef.current) / 1000;
+          if (elapsed >= 10 && !faceWarningIssuedRef.current) {
+            console.warn(
+              `[${getTimeStamp()}] No face detected for 10 seconds!`
+            );
+            faceWarningIssuedRef.current = true;
+          }
+
+          multiFaceWarningIssuedRef.current = false;
+        }
+
         // draw landmarks
-        if (results.multiFaceLandmarks) {
-          console.log("Faces detected: ", results.multiFaceLandmarks.length);
+        if (faces.length > 0) {
+          // console.log("Faces detected: ", faces.length);
           canvasCtx.fillStyle = "lime";
 
           results.multiFaceLandmarks.forEach((landmarks: any) => {
@@ -89,8 +165,9 @@ export default function VideoCapture() {
 
     document.body.append(script);
 
-    // ----- LOAD OBJECT DETECTION MODEL -----
-
+    // ----------------------
+    // Load Object Detection Model
+    // ----------------------
     const loadObjectModel = async () => {
       try {
         await tf.setBackend("webgl");
@@ -106,6 +183,9 @@ export default function VideoCapture() {
 
     loadObjectModel();
 
+    // ----------------------
+    // Start Video Stream
+    // ----------------------
     const startVideo = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -136,18 +216,28 @@ export default function VideoCapture() {
                       if (
                         ["cell phone", "book", "laptop", "tv"].includes(p.class)
                       ) {
-                        console.log(
-                          `Detected ${p.class} (${Math.round(p.score * 100)}%)`
-                        );
+                        const now = Date.now();
+                        const lastWarn =
+                          lastObjectWarningRef.current[p.class] || 0;
 
-                        if (p.class === "cell phone") {
-                          console.warn("Mobile phone detected!");
-                        }
-                        if (p.class === "book") {
-                          console.warn("Book/Notes detected!");
-                        }
-                        if (p.class === "laptop") {
-                          console.warn("Extra device detected!");
+                        if (now - lastWarn > 10000) {
+                          if (p.class === "cell phone") {
+                            console.warn(
+                              `[${getTimeStamp()}] Mobile phone detected!`
+                            );
+                          }
+                          if (p.class === "book") {
+                            console.warn(
+                              `[${getTimeStamp()}] Book/Notes detected!`
+                            );
+                          }
+                          if (p.class === "laptop") {
+                            console.warn(
+                              `[${getTimeStamp()}] Extra device detected!`
+                            );
+                          }
+
+                          lastObjectWarningRef.current[p.class] = now;
                         }
                       }
                     }
