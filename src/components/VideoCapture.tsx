@@ -3,6 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { VideoOff } from "lucide-react";
 
+import * as tf from "@tensorflow/tfjs";
+import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import "@tensorflow/tfjs-backend-webgl";
+import "@tensorflow/tfjs-backend-cpu";
+
 declare global {
   interface Window {
     FaceMesh: any;
@@ -12,6 +17,7 @@ declare global {
 export default function VideoCapture() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const objectModelRef = useRef<cocoSsd.ObjectDetection | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -19,6 +25,8 @@ export default function VideoCapture() {
 
     let animationId: number;
     let faceMesh: any;
+
+    // ----- LOAD FACE DETECTION MODEL -----
 
     const script = document.createElement("script");
     script.src =
@@ -81,6 +89,23 @@ export default function VideoCapture() {
 
     document.body.append(script);
 
+    // ----- LOAD OBJECT DETECTION MODEL -----
+
+    const loadObjectModel = async () => {
+      try {
+        await tf.setBackend("webgl");
+      } catch (err) {
+        console.warn("WebGL not available, falling back to CPU");
+        await tf.setBackend("cpu");
+      }
+
+      await tf.ready();
+      objectModelRef.current = await cocoSsd.load();
+      console.log("COCO-SSD model loaded with backend: ", tf.getBackend());
+    };
+
+    loadObjectModel();
+
     const startVideo = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -97,7 +122,37 @@ export default function VideoCapture() {
 
             const processFrame = async () => {
               if (videoRef.current && faceMesh) {
+                // run face detection
                 await faceMesh.send({ image: videoRef.current });
+
+                // run object detection
+                if (objectModelRef.current) {
+                  const predictions = await objectModelRef.current.detect(
+                    videoRef.current
+                  );
+
+                  predictions.forEach((p) => {
+                    if (p.score > 0.6) {
+                      if (
+                        ["cell phone", "book", "laptop", "tv"].includes(p.class)
+                      ) {
+                        console.log(
+                          `Detected ${p.class} (${Math.round(p.score * 100)}%)`
+                        );
+
+                        if (p.class === "cell phone") {
+                          console.warn("Mobile phone detected!");
+                        }
+                        if (p.class === "book") {
+                          console.warn("Book/Notes detected!");
+                        }
+                        if (p.class === "laptop") {
+                          console.warn("Extra device detected!");
+                        }
+                      }
+                    }
+                  });
+                }
               }
               animationId = requestAnimationFrame(processFrame);
             };
