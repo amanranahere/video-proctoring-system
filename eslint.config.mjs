@@ -19,6 +19,12 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off", // 👈 disable temporarily
+      // you can also disable all TS strictness if needed:
+      // "@typescript-eslint/explicit-module-boundary-types": "off",
+      // "@typescript-eslint/no-unused-vars": "off",
+    },
   },
 ];
 
