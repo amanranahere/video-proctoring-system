@@ -1,6 +1,6 @@
 # Video Proctoring System
 
-A computer vision-based proctoring module that demonstrated how remote candidates can be monitored during online exams or interviews.
+A computer vision-based proctoring module that demonstrates how remote candidates can be monitored during online exams or interviews.
 This project is not a full-fledged exam platform, instead it serves as a proof-of-concept to show how real-time monitoring and suspicious activity detection can be achieved using modern ML tools.
 
 <br>
@@ -19,7 +19,7 @@ This project is not a full-fledged exam platform, instead it serves as a proof-o
 
 ## 🎯 Purpose
 
-This project demonstrated a method of proctoring that could be integrated into:
+This project demonstrates a method of proctoring that could be integrated into:
 - Online examination portals
 - Remote interview platforms
 - E-learning and certification systems
