@@ -1,7 +1,7 @@
 # Video Proctoring System
 
 A computer vision-based proctoring module that demonstrated how remote candidates can be monitored during online exams or interviews.
-This project is not a full-fleged exam platform, instead it serves as a proof-of-concept to show how real-time monitoring and suspicious activity detection can be achieved using modern ML tools.
+This project is not a full-fledged exam platform, instead it serves as a proof-of-concept to show how real-time monitoring and suspicious activity detection can be achieved using modern ML tools.
 
 <br>
 
@@ -11,13 +11,16 @@ This project is not a full-fleged exam platform, instead it serves as a proof-of
 - Activity detection: multiple faces, mobile/laptop detection, etc.
 - Real-time warnings with timestamps.
 - Summary proctoring report generation.
+- Video recording of the candidate's session.
+- Automatic screenshots during suspicious activities.
+- Downloadable logs/reports for post-exam analysis.
 
 <br>
 
 ## 🎯 Purpose
 
 This project demonstrated a method of proctoring that could be integrated into:
-- Online examination portols
+- Online examination portals
 - Remote interview platforms
 - E-learning and certification systems
 
@@ -32,7 +35,7 @@ This project demonstrated a method of proctoring that could be integrated into:
 
 <br>
 
-## Live Deployment
+## 🚀 Live Deployment
 
 Check out live site: [Video-Proctoring-System-Prototype2](https://video-proctoring-system-prototype2.vercel.app/)
 
