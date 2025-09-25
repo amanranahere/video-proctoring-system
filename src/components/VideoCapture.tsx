@@ -231,9 +231,7 @@ export default function VideoCapture() {
 
                   predictions.forEach((p) => {
                     if (p.score > 0.6) {
-                      if (
-                        ["cell phone", "book", "laptop", "tv"].includes(p.class)
-                      ) {
+                      if (["cell phone", "book", "laptop"].includes(p.class)) {
                         const now = Date.now();
                         const lastWarn =
                           lastObjectWarningRef.current[p.class] || 0;

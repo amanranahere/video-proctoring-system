@@ -36,6 +36,7 @@ export default function ControlPanel() {
     stopRecording();
 
     const logs = useLogStore.getState().logs;
+
     const report = {
       candidate: "Candidate Name",
       title: "Interview Title",
