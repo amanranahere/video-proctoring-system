@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, ChevronUp, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence, easeInOut } from "motion/react";
 
 const features = [
   {
@@ -36,6 +38,48 @@ const features = [
   },
 ];
 
+type FeatureName =
+  | "Live Streaming"
+  | "Activity Detection"
+  | "Real-Time Alerts"
+  | "Proctoring Reports"
+  | "Session Recording"
+  | "Snapshots";
+
+interface FeatureFocus {
+  originX: string;
+  originY: string;
+  scale: number;
+}
+
+const featureFocus: Record<FeatureName, FeatureFocus> = {
+  "Live Streaming": { originX: "33.4%", originY: "41.7%", scale: 1.5 }, // whole video feed box
+  "Activity Detection": { originX: "33.4%", originY: "41.7%", scale: 2.5 }, // zoomed-in feed (e.g. hands)
+  "Real-Time Alerts": { originX: "100%", originY: "35%", scale: 2.5 }, // logs panel bottom-right
+  "Session Recording": { originX: "84.9%", originY: "11.1%", scale: 2.2 }, // Start Recording button
+  Snapshots: { originX: "77.1%", originY: "11.1%", scale: 2.2 }, // Take Snapshot button
+  "Proctoring Reports": { originX: "50.0%", originY: "50.0%", scale: 1 }, // keep centered
+};
+
+const containerVariant = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const listVariant = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: easeInOut },
+  },
+};
+
 export default function Features() {
   const [open, setOpen] = useState<number | null>(null);
 
@@ -43,37 +87,159 @@ export default function Features() {
     setOpen(open === index ? null : index);
   };
 
+  const nextFeature = (index: number) => {
+    if (index === 5) setOpen(0);
+    else setOpen(index + 1);
+  };
+
+  const prevFeature = (index: number) => {
+    if (index === 0) setOpen(5);
+    else setOpen(index - 1);
+  };
+
   return (
     <section className="w-full h-full flex flex-col justify-center items-center gap-y-10 my-20">
       <h2 className="w-full pl-10 lg:pl-28 text-4xl">Features</h2>
 
-      <div className="w-[95%] lg:p-10 bg-white h-[95vh] rounded-4xl flex items-center">
-        <div className="w-full lg:max-w-[40%] flex flex-col gap-y-3">
+      <div className="relative w-[95%] h-[95vh] lg:p-24 bg-white  rounded-4xl flex items-center overflow-hidden">
+        {/* buttons */}
+        <AnimatePresence mode="wait">
+          {open !== null && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="absolute top-1/2 -translate-y-1/2 left-9 flex flex-col gap-y-5 pr-8 z-20"
+            >
+              <button
+                onClick={() => prevFeature(open)}
+                className="p-1.5 text-[#1d1d1f] bg-[#e8e8edb8] hover:bg-[#e8e8ede7] duration-300 rounded-full cursor-pointer"
+              >
+                <ChevronUp className="w-3 h-3 lg:w-6 lg:h-6" strokeWidth={3} />
+              </button>
+
+              <button
+                onClick={() => nextFeature(open)}
+                className="p-1.5 text-[#1d1d1f] bg-[#e8e8edb8] hover:bg-[#e8e8ede7] duration-300 rounded-full cursor-pointer"
+              >
+                <ChevronDown
+                  className="w-3 h-3 lg:w-6 lg:h-6"
+                  strokeWidth={3}
+                />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* feature list */}
+        <motion.ul
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={containerVariant}
+          className="w-full lg:max-w-[40%] flex flex-col gap-y-3 z-20"
+        >
           {features.map((feature, index) => (
-            <div
+            <motion.li
+              layout
+              variants={listVariant}
+              transition={{
+                layout: {
+                  type: "spring",
+                  stiffness: 220,
+                  damping: 18,
+                  mass: 0.8,
+                },
+              }}
               key={index}
               onClick={() => toggleFeature(index)}
-              className={`max-w-max px-4 lg:px-6 py-2 lg:py-3 bg-[#f7f7f9]  text-[#1d1d1f] cursor-pointer ${
+              className={`max-w-max bg-[#e8e8ed94] text-[#1d1d1f] cursor-pointer select-none ${
                 open === index ? "rounded-4xl" : "rounded-full"
               }`}
             >
               {open === index ? (
-                <p className="text-xl leading-tight">
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut", delay: 0.2 }}
+                  className="p-7 text-xl leading-tight"
+                >
                   <span className="font-medium">{feature.name}.</span>&nbsp;
                   <span>{feature.paragraph}</span>
-                </p>
+                </motion.p>
               ) : (
-                <div className="flex justify-center items-center gap-x-3 text-xl font-medium">
-                  <PlusCircle className="w-3 h-3 lg:w-5 lg:h-5" />
-                  <span className="lg:pb-1 select-nones">{feature.name}</span>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeInOut", delay: 0.2 }}
+                  className="pl-2 lg:pl-3 pr-4 lg:pr-6 py-2 lg:py-3 flex justify-center items-center gap-x-3 text-xl hover:bg-[#e8e8ed9d] rounded-full duration-300"
+                >
+                  <PlusCircle className="w-3 h-3 lg:w-6 lg:h-6" />
+                  <span className="lg:pb-1 select-nones font-medium">
+                    {feature.name}
+                  </span>
+                </motion.div>
               )}
-            </div>
+            </motion.li>
           ))}
-        </div>
+        </motion.ul>
 
         {/* image */}
-        <div></div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          layout
+          transition={{
+            duration: 0.5,
+            ease: "easeOut",
+            layout: {
+              type: "spring",
+              stiffness: 220,
+              damping: 18,
+              mass: 0.8,
+            },
+          }}
+          className={`absolute top-1/2 -translate-y-1/2 right-10 rounded-4xl shadow-2xl z-10 overflow-hidden select-none ${
+            open !== null ? "h-[80vh] w-[50vw]" : "h-[75vh] aspect-video"
+          } `}
+        >
+          <motion.div
+            initial={{ scale: 1 }}
+            animate={
+              open !== null
+                ? {
+                    scale: `${
+                      featureFocus[features[open].name as FeatureName].scale
+                    }`,
+                  }
+                : {
+                    scale: 1,
+                  }
+            }
+            style={{
+              transformOrigin:
+                open !== null
+                  ? `${
+                      featureFocus[features[open].name as FeatureName].originX
+                    } ${
+                      featureFocus[features[open].name as FeatureName].originY
+                    }`
+                  : "50% 50%",
+            }}
+            className="relative w-full h-full duration-300"
+          >
+            <Image
+              src="/features.png"
+              alt="Features demo"
+              fill
+              className="object-cover rounded-4xl"
+            />
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
