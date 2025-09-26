@@ -98,10 +98,10 @@ export default function Features() {
   };
 
   return (
-    <section className="w-full h-full flex flex-col justify-center items-center gap-y-10 my-20">
+    <section className="w-full h-full flex flex-col justify-center items-center gap-y-5 lg:gap-y-10 my-20">
       <h2 className="w-full pl-10 lg:pl-28 text-4xl">Features</h2>
 
-      <div className="relative w-[95%] h-[95vh] lg:p-24 bg-white  rounded-4xl flex items-center overflow-hidden">
+      <div className="relative w-[95%] h-full lg:h-[95vh] py-3 md:py-6 lg:py-24 lg:px-24 bg-white rounded-4xl flex flex-col-reverse lg:flex-row items-center justify-end lg:justify-normal gap-y-5 lg:gap-y-0 overflow-hidden">
         {/* buttons */}
         <AnimatePresence mode="wait">
           {open !== null && (
@@ -110,7 +110,7 @@ export default function Features() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="absolute top-1/2 -translate-y-1/2 left-9 flex flex-col gap-y-5 pr-8 z-20"
+              className="absolute top-1/2 -translate-y-1/2 left-9 hidden lg:flex flex-col gap-y-5 pr-8 z-20"
             >
               <button
                 onClick={() => prevFeature(open)}
@@ -138,7 +138,7 @@ export default function Features() {
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
           variants={containerVariant}
-          className="w-full lg:max-w-[40%] flex flex-col gap-y-3 z-20"
+          className="w-[100%] lg:w-[40%] px-3 pb- flex flex-col gap-y-2 lg:gap-y-3 z-20 overflow-x-auto no-scrollbar"
         >
           {features.map((feature, index) => (
             <motion.li
@@ -154,7 +154,7 @@ export default function Features() {
               }}
               key={index}
               onClick={() => toggleFeature(index)}
-              className={`max-w-max bg-[#e8e8ed94] text-[#1d1d1f] cursor-pointer select-none ${
+              className={`lg:max-w-max max-h-max lg:text-lg bg-[#e8e8ed94] text-[#1d1d1f] cursor-pointer select-none backdrop-blur-md ${
                 open === index ? "rounded-4xl" : "rounded-full"
               }`}
             >
@@ -164,9 +164,9 @@ export default function Features() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4, ease: "easeInOut", delay: 0.2 }}
-                  className="p-7 text-xl leading-tight"
+                  className="p-5 lg:p-7 leading-tight"
                 >
-                  <span className="font-medium">{feature.name}.</span>&nbsp;
+                  <span className="font-semibold">{feature.name}.</span>&nbsp;
                   <span>{feature.paragraph}</span>
                 </motion.p>
               ) : (
@@ -175,10 +175,10 @@ export default function Features() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.4, ease: "easeInOut", delay: 0.2 }}
-                  className="pl-2 lg:pl-3 pr-4 lg:pr-6 py-2 lg:py-3 flex justify-center items-center gap-x-3 text-xl hover:bg-[#e8e8ed9d] rounded-full duration-300"
+                  className="pl-2.5 lg:pl-3 pr-4 lg:pr-6 py-2.5 lg:py-3 flex lg:justify-center items-center gap-x-2 lg:gap-x-3 hover:bg-[#e8e8ed9d] rounded-full duration-300"
                 >
-                  <PlusCircle className="w-3 h-3 lg:w-6 lg:h-6" />
-                  <span className="lg:pb-1 select-nones font-medium">
+                  <PlusCircle className="w-6 h-6" />
+                  <span className="lg:pb-0.5 select-nones font-medium whitespace-nowrap">
                     {feature.name}
                   </span>
                 </motion.div>
@@ -203,8 +203,10 @@ export default function Features() {
               mass: 0.8,
             },
           }}
-          className={`absolute top-1/2 -translate-y-1/2 right-10 rounded-4xl shadow-2xl z-10 overflow-hidden select-none ${
-            open !== null ? "h-[80vh] w-[50vw]" : "h-[75vh] aspect-video"
+          className={`lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:right-10 rounded-4xl lg:shadow-2xl z-10 overflow-hidden select-none ${
+            open !== null
+              ? "h-[50vh] md:h-[60vh] w-[90vw] lg:h-[80vh] lg:w-[50vw]"
+              : "w-[90vw] lg:w-[65vw] aspect-video"
           } `}
         >
           <motion.div
