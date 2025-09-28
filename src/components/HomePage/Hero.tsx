@@ -8,14 +8,14 @@ export default function Hero() {
     >
       <h1 className="text-6xl font-extrabold">Video Proctoring System</h1>
 
-      <p className="text-[#86868b] max-w-4xl mx-auto text-2xl leading-tight font-semibold text-center">
+      <p className="text-[#86868b] max-w-4xl mx-auto text-2xl leading-tight tracking-tight font-semibold text-center text-balance">
         A modern video proctoring system designed to demonstrate how{" "}
-        <span className="text-[#000]">remote candidates</span> can be monitored
+        <span className="text-black">remote candidates</span> can be monitored
         in real time. Using{" "}
-        <span className="text-[#000]">computer vision checks</span>, it
-        showcases how suspicious activities are detected during
-        <span className="text-[#000]"> online exams</span> and{" "}
-        <span className="text-[#000]">interviews</span>.
+        <span className="text-black">computer vision checks</span>, it showcases
+        how suspicious activities are detected during
+        <span className="text-black"> online exams</span> and{" "}
+        <span className="text-black">interviews</span>.
       </p>
 
       <a

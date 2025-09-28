@@ -98,15 +98,10 @@ export default function Features() {
   };
 
   return (
-    <section
-      id="features-section"
-      className="w-full h-full flex flex-col justify-center items-center gap-y-5 lg:gap-y-10 my-20"
-    >
-      <h2 className="w-full pl-10 lg:pl-28 text-5xl font-semibold text-[#1d1d1f]">
-        Features
-      </h2>
+    <section id="features-section" className="w-full h-full py-40">
+      <h2 className="mx-32 pb-12 lg:text-7xl font-semibold">Features.</h2>
 
-      <div className="relative w-[95%] h-full lg:h-[95vh] py-3 md:py-6 lg:py-24 lg:px-24 bg-white rounded-4xl flex flex-col-reverse lg:flex-row items-center justify-end lg:justify-normal gap-y-5 lg:gap-y-0 overflow-hidden">
+      <div className="relative w-[95%] h-full lg:h-[95vh] py-3 md:py-6 lg:py-24 lg:px-24 bg-white rounded-4xl flex flex-col-reverse lg:flex-row items-center justify-end lg:justify-normal gap-y-5 lg:gap-y-0 overflow-hidden mx-auto">
         {/* buttons */}
         <AnimatePresence mode="wait">
           {open !== null && (
