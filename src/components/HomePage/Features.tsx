@@ -98,8 +98,13 @@ export default function Features() {
   };
 
   return (
-    <section className="w-full h-full flex flex-col justify-center items-center gap-y-5 lg:gap-y-10 my-20">
-      <h2 className="w-full pl-10 lg:pl-28 text-4xl">Features</h2>
+    <section
+      id="features-section"
+      className="w-full h-full flex flex-col justify-center items-center gap-y-5 lg:gap-y-10 my-20"
+    >
+      <h2 className="w-full pl-10 lg:pl-28 text-5xl font-semibold text-[#1d1d1f]">
+        Features
+      </h2>
 
       <div className="relative w-[95%] h-full lg:h-[95vh] py-3 md:py-6 lg:py-24 lg:px-24 bg-white rounded-4xl flex flex-col-reverse lg:flex-row items-center justify-end lg:justify-normal gap-y-5 lg:gap-y-0 overflow-hidden">
         {/* buttons */}
@@ -178,7 +183,7 @@ export default function Features() {
                   className="pl-2.5 lg:pl-3 pr-4 lg:pr-6 py-2.5 lg:py-3 flex lg:justify-center items-center gap-x-2 lg:gap-x-3 hover:bg-[#e8e8ed9d] rounded-full duration-300"
                 >
                   <PlusCircle className="w-6 h-6" />
-                  <span className="lg:pb-0.5 select-nones font-medium whitespace-nowrap">
+                  <span className="select-nones font-medium whitespace-nowrap">
                     {feature.name}
                   </span>
                 </motion.div>

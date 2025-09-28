@@ -17,7 +17,10 @@ export default function StartInterview() {
   };
 
   return (
-    <section className="min-h-screen flex justify-center items-center">
+    <section
+      id="start-interview"
+      className="min-h-screen flex justify-center items-center"
+    >
       <div className="w-full lg:w-[40%] flex flex-col justify-center items-center gap-y-3">
         <input
           type="text"

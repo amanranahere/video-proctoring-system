@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+:root {
+  font-family: var(--font-dm-sans), sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 /* * {
   scrollbar-color: #3b3b3c #ffffff00;
 } */
