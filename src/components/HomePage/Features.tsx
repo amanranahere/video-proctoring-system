@@ -88,20 +88,20 @@ export default function Features() {
   };
 
   const nextFeature = (index: number) => {
-    if (index === 5) setOpen(0);
-    else setOpen(index + 1);
+    const lastIndex = features.length - 1;
+    setOpen(index === lastIndex ? 0 : index + 1);
   };
 
   const prevFeature = (index: number) => {
-    if (index === 0) setOpen(5);
-    else setOpen(index - 1);
+    const lastIndex = features.length - 1;
+    setOpen(index === 0 ? lastIndex : index - 1);
   };
 
   return (
     <section id="features-section" className="w-full h-full py-40">
       <h2 className="mx-32 pb-12 lg:text-7xl font-semibold">Features.</h2>
 
-      <div className="relative w-[95%] h-full lg:h-[95vh] py-3 md:py-6 lg:py-24 lg:px-24 bg-white rounded-4xl flex flex-col-reverse lg:flex-row items-center justify-end lg:justify-normal gap-y-5 lg:gap-y-0 overflow-hidden mx-auto">
+      <div className="relative w-[90%] lg:w-[95%] h-full lg:h-[95vh] py-3 md:py-6 lg:py-24 lg:px-24 bg-white rounded-4xl flex flex-col-reverse lg:flex-row items-center justify-end lg:justify-normal gap-y-5 lg:gap-y-0 overflow-hidden mx-auto">
         {/* buttons */}
         <AnimatePresence mode="wait">
           {open !== null && (
@@ -205,8 +205,8 @@ export default function Features() {
           }}
           className={`lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:right-10 rounded-4xl lg:shadow-2xl z-10 overflow-hidden select-none ${
             open !== null
-              ? "h-[50vh] md:h-[60vh] w-[90vw] lg:h-[80vh] lg:w-[50vw]"
-              : "w-[90vw] lg:w-[65vw] aspect-video"
+              ? "h-[50vh] md:h-[60vh] lg:h-[80vh] w-[95%] lg:w-[50vw]"
+              : "w-[95%] lg:w-[65vw] aspect-video"
           } `}
         >
           <motion.div

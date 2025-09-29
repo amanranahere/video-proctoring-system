@@ -48,7 +48,7 @@ const listVariant = {
 
 export default function Working() {
   return (
-    <section id="working-section" className="min-h-screen mx-32 py-40">
+    <section id="working-section" className="mx-32 py-40">
       <h2 className="pb-4 lg:text-7xl font-semibold">How it Works.</h2>
 
       <p className="max-w-4xl pb-12 text-[#86868b] text-2xl leading-tight tracking-tight font-semibold text-balance">
