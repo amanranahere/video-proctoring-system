@@ -10,12 +10,12 @@ export default function Hero() {
 
       <p className="text-[#86868b] max-w-4xl mx-auto text-2xl leading-tight tracking-tight font-semibold text-center text-balance">
         A modern video proctoring system designed to demonstrate how{" "}
-        <span className="text-black">remote candidates</span> can be monitored
-        in real time. Using{" "}
-        <span className="text-black">computer vision checks</span>, it showcases
-        how suspicious activities are detected during
-        <span className="text-black"> online exams</span> and{" "}
-        <span className="text-black">interviews</span>.
+        <span className="text-[#1d1d1f]">remote candidates</span> can be
+        monitored in real time. Using{" "}
+        <span className="text-[#1d1d1f]">computer vision checks</span>, it
+        showcases how suspicious activities are detected during
+        <span className="text-[#1d1d1f]"> online exams</span> and{" "}
+        <span className="text-[#1d1d1f]">interviews</span>.
       </p>
 
       <a

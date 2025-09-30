@@ -53,8 +53,8 @@ export default function Working() {
 
       <p className="max-w-4xl pb-12 text-[#86868b] text-2xl leading-tight tracking-tight font-semibold text-balance">
         The system uses{" "}
-        <span className="text-[#000]">real-time video analysis</span> and{" "}
-        <span className="text-[#000]">computer vision</span> techniques to
+        <span className="text-[#1d1d1f]">real-time video analysis</span> and{" "}
+        <span className="text-[#1d1d1f]">computer vision</span> techniques to
         monitor candidates during online assessments. Here's a quick look at the
         process.
       </p>
@@ -62,7 +62,7 @@ export default function Working() {
       <motion.ul
         initial="hidden"
         whileInView="show"
-        // viewport={{ once: true }}
+        viewport={{ once: true }}
         variants={containerVariant}
         className="w-full grid md:grid-cols-3 gap-6"
       >
