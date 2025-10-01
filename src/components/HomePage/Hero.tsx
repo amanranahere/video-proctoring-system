@@ -4,11 +4,13 @@ export default function Hero() {
   return (
     <section
       id="hero-section"
-      className="min-h-screen bg-[#fff] flex flex-col justify-center items-center gap-y-5"
+      className="min-h-screen bg-[#fff] flex flex-col justify-center items-center gap-y-5 px-4 lg:px-0"
     >
-      <h1 className="text-6xl font-extrabold">Video Proctoring System</h1>
+      <h1 className="text-4xl lg:text-7xl text-center font-extrabold">
+        Video Proctoring System
+      </h1>
 
-      <p className="text-[#86868b] max-w-4xl mx-auto text-2xl leading-tight tracking-tight font-semibold text-center text-balance">
+      <p className="text-[#86868b] max-w-4xl mx-auto text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold text-center text-balance">
         A modern video proctoring system designed to demonstrate how{" "}
         <span className="text-[#1d1d1f]">remote candidates</span> can be
         monitored in real time. Using{" "}

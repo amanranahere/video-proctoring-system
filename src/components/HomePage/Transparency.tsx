@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { VideoOff, Eye, Scale, Plus, X } from "lucide-react";
 
-export const modalData = [
+const modalData = [
   {
     title: "Your video is never stored",
     body: (
@@ -73,33 +73,38 @@ export default function Transparency() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <section id="transparency-section" className="mx-32 py-40">
-      <h2 className="pb-4 lg:text-7xl font-semibold">
+    <section id="transparency-section" className="mx-4 lg:mx-32 py-20 lg:py-40">
+      <h2 className="pb-2 lg:pb-4 text-4xl lg:text-7xl font-semibold">
         Trust and Transparency.
       </h2>
 
-      <p className="max-w-4xl pb-12 text-[#86868b] text-2xl leading-tight tracking-tight font-semibold text-balance">
+      <p className="max-w-4xl pb-6 lg:pb-12 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance">
         We believe <span className="text-[#1d1d1f]">confidence</span> is earned
         by being <span className="text-[#1d1d1f]">open</span> about how the
         system works and by protecting what matters most —{" "}
         <span className="text-[#1d1d1f]">your privacy</span>.
       </p>
 
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="w-full grid md:grid-cols-3 gap-6 select-none"
-      >
+      <div className="w-full grid md:grid-cols-3 gap-3 lg:gap-6 select-none">
         <motion.button
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            y: { duration: 0.6, ease: "easeOut" },
+            opacity: { duration: 0.6, delay: 0.6, ease: "easeOut" },
+          }}
+          viewport={{ once: true }}
           onClick={() => setActiveIndex(0)}
-          className="relative px-8 pt-8 pb-16 bg-white rounded-4xl text-left text-[#1d1d1f] hover:scale-[1.02] duration-500 space-y-4 cursor-pointer overflow-hidden"
+          className="relative px-7 lg:px-8 pt-7 lg:pt-8 pb-14 lg:pb-16 bg-white rounded-4xl text-left text-[#1d1d1f] hover:scale-[1.02] duration-500 space-y-2.5 lg:space-y-4 cursor-pointer overflow-hidden"
         >
           {/* icon */}
-          <VideoOff className="w-12 h-12 text-[#ff4f81]" strokeWidth={1} />
+          <VideoOff
+            className="w-10 lg:w-12 h-10 lg:h-12 text-[#ff4f81]"
+            strokeWidth={1}
+          />
 
           {/* content */}
-          <p className="text-[28px] font-bold leading-tight">
+          <p className="text-2xl lg:text-[28px] font-bold leading-tight">
             Your <span className="text-[#ff4f81]">video is never stored</span>,
             only processed in real time.
           </p>
@@ -111,15 +116,24 @@ export default function Transparency() {
         </motion.button>
 
         <motion.button
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            y: { duration: 0.6, delay: 0.15, ease: "easeOut" },
+            opacity: { duration: 0.6, delay: 0.75, ease: "easeOut" },
+          }}
+          viewport={{ once: true }}
           onClick={() => setActiveIndex(1)}
-          className="relative px-8 pt-8 pb-16 bg-white rounded-4xl text-left text-[#1d1d1f] hover:scale-[1.02] duration-500 space-y-4 cursor-pointer overflow-hidden"
+          className="relative px-7 lg:px-8 pt-7 lg:pt-8 pb-14 lg:pb-16 bg-white rounded-4xl text-left text-[#1d1d1f] hover:scale-[1.02] duration-500 space-y-2.5 lg:space-y-4 cursor-pointer overflow-hidden"
         >
           {/* icon */}
-
-          <Eye className="w-12 h-12 text-[#00bcd4]" strokeWidth={1} />
+          <Eye
+            className="w-10 lg:w-12 h-10 lg:h-12 text-[#00bcd4]"
+            strokeWidth={1}
+          />
 
           {/* content */}
-          <p className="text-[28px] font-bold leading-tight">
+          <p className="text-2xl lg:text-[28px] font-bold leading-tight">
             Clear{" "}
             <span className="text-[#00bcd4]">transparency at every step</span>,
             with visible checks and alerts.
@@ -132,14 +146,24 @@ export default function Transparency() {
         </motion.button>
 
         <motion.button
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            y: { duration: 0.6, delay: 0.3, ease: "easeOut" },
+            opacity: { duration: 0.6, delay: 0.9, ease: "easeOut" },
+          }}
+          viewport={{ once: true }}
           onClick={() => setActiveIndex(2)}
-          className="relative px-8 pt-8 pb-16 bg-white rounded-4xl text-left text-[#1d1d1f] hover:scale-[1.02] duration-500 space-y-4 cursor-pointer overflow-hidden"
+          className="relative px-7 lg:px-8 pt-7 lg:pt-8 pb-14 lg:pb-16 bg-white rounded-4xl text-left text-[#1d1d1f] hover:scale-[1.02] duration-500 space-y-2.5 lg:space-y-4 cursor-pointer overflow-hidden"
         >
           {/* icon */}
-          <Scale className="w-12 h-12 text-[#8668ff]" strokeWidth={1} />
+          <Scale
+            className="w-10 lg:w-12 h-10 lg:h-12 text-[#8668ff]"
+            strokeWidth={1}
+          />
 
           {/* content */}
-          <p className="text-[28px] font-bold leading-tight">
+          <p className="text-2xl lg:text-[28px] font-bold leading-tight">
             Designed for{" "}
             <span className="text-[#8668ff]">fair and unbiased evaluation</span>
             , the same for everyone.
@@ -150,24 +174,24 @@ export default function Transparency() {
             <Plus className="w-5 h-5 text-white" strokeWidth={4} />
           </div>
         </motion.button>
-      </motion.div>
+      </div>
 
       {/* modal */}
       <AnimatePresence mode="wait">
         {activeIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fixed inset-0 w-full h-full flex justify-center items-center z-[99] text-[#1d1d1f]"
-          >
-            <div className="relative w-[90%] lg:w-[50%] p-8 lg:px-20 lg:pt-24 lg:pb-20 bg-white z-[90] rounded-4xl flex flex-col gap-y-6">
-              <h3 className="text-[56px] font-bold leading-14">
+          <div className="fixed inset-0 w-full h-full flex justify-center items-center z-[99] text-[#1d1d1f]">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="relative w-[90%] lg:w-[50%] px-8 lg:px-20 pt-16 lg:pt-24 pb-8 lg:pb-20 bg-white z-[90] rounded-4xl flex flex-col gap-y-6"
+            >
+              <h3 className="text-4xl lg:text-[56px] font-bold lg:leading-14">
                 {modalData[activeIndex].title}
               </h3>
 
-              <div className="lg:text-lg space-y-4">
+              <div className="lg:text-lg space-y-4 leading-snug lg:leading-normal">
                 {modalData[activeIndex].body}
               </div>
 
@@ -178,14 +202,18 @@ export default function Transparency() {
               >
                 <X className="w-5 h-5 text-white" strokeWidth={4} />
               </div>
-            </div>
+            </motion.div>
 
             {/* blurred bg */}
-            <div
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
               onClick={() => setActiveIndex(null)}
               className="fixed inset-0 bg-black/40 backdrop-blur-lg z-50"
-            ></div>
-          </motion.div>
+            ></motion.div>
+          </div>
         )}
       </AnimatePresence>
     </section>
