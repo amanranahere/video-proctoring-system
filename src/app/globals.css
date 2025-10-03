@@ -56,7 +56,7 @@ html {
 .floating-textarea textarea {
   width: 100%;
   min-width: 200px;
-  padding: 1rem 0.8rem 0.6rem 0.8rem;
+  padding: 1.2rem 0.8rem 0.6rem 0.8rem;
   background: transparent;
 }
 
@@ -87,7 +87,7 @@ html {
 .floating-textarea textarea:not(:placeholder-shown) + label {
   top: 0.2rem;
   font-size: 0.75rem;
-  color: #3b82f6;
+  color: #86868b;
   transform: none;
 }
 

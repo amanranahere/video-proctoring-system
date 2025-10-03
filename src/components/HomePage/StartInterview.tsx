@@ -26,9 +26,9 @@ export default function StartInterview() {
 
   return (
     <section id="start-interview" className="py-20 lg:py-40">
-      <div className="relative w-[90%] lg:w-[85%] h-full mx-auto p-4 lg:p-24 text-[#1d1d1f] bg-white rounded-4xl flex flex-col justify-center items-center overflow-hidden">
-        <h2 className="pb-2 lg:pb-4 text-4xl lg:text-7xl font-semibold">
-          Start the Interview.
+      <div className="relative w-[90%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-4 py-10 lg:px-24 lg:py-24 text-[#1d1d1f] bg-white rounded-4xl flex flex-col justify-center items-center overflow-hidden">
+        <h2 className="pb-2 lg:pb-4 text-4xl lg:text-7xl font-semibold text-center">
+          Start the Interview
         </h2>
 
         <p className="max-w-5xl pb-6 lg:pb-12 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance text-center">
@@ -39,7 +39,7 @@ export default function StartInterview() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="lg:min-w-2xl grid grid-cols-2 gap-2"
+          className="w-full lg:max-w-max lg:min-w-2xl grid lg:grid-cols-2 gap-2"
         >
           <div className="flex flex-col gap-2">
             {/* interview title */}
@@ -49,7 +49,7 @@ export default function StartInterview() {
                   required: "Interview title is required",
                 })}
                 placeholder=" "
-                className={`border rounded-2xl ${
+                className={`border-2 rounded-2xl focus:border-[#86868b] duration-300 outline-none ${
                   errors.title ? "border-red-500" : "border-[#d1d5db]"
                 }`}
               />
@@ -70,7 +70,7 @@ export default function StartInterview() {
                   required: "Candidate name is required",
                 })}
                 placeholder=" "
-                className={`border rounded-2xl ${
+                className={`border-2 rounded-2xl focus:border-[#86868b] duration-300 outline-none ${
                   errors.candidateName ? "border-red-500" : "border-[#d1d5db]"
                 }`}
               />
@@ -89,7 +89,7 @@ export default function StartInterview() {
               <input
                 {...register("interviewerName")}
                 placeholder=" "
-                className={`border rounded-2xl ${
+                className={`border-2 rounded-2xl focus:border-[#86868b] duration-300 outline-none ${
                   errors.interviewerName ? "border-red-500" : "border-[#d1d5db]"
                 }`}
               />
@@ -109,7 +109,7 @@ export default function StartInterview() {
                 type="number"
                 {...register("duration", { min: 10, max: 180 })}
                 placeholder=" "
-                className={`border rounded-2xl ${
+                className={`border-2 rounded-2xl focus:border-[#86868b] duration-300 outline-none ${
                   errors.duration ? "border-red-500" : "border-[#d1d5db]"
                 }`}
               />
@@ -129,17 +129,17 @@ export default function StartInterview() {
             <div className="h-full floating-textarea">
               <textarea
                 rows={6}
-                className="h-full resize-none custom-scrollbar rounded-2xl border border-[#d1d5db]"
+                className="h-full resize-none custom-scrollbar rounded-2xl border-2 border-[#d1d5db] focus:border-[#86868b] duration-300 outline-none"
                 {...register("notes")}
                 placeholder=" "
               />
 
-              <label>Notes (optional)</label>
+              <label>Some context (optional)</label>
             </div>
 
             <button
               type="submit"
-              className="lg:text-lg bg-[#e8e8ed94] text-[#1d1d1f] pr-2.5 lg:pr-3 pl-4 lg:pl-6 py-2.5 flex lg:justify-center items-center gap-x-2 lg:gap-x-3 hover:bg-[#e8e8edd7] rounded-2xl cursor-pointer duration-300"
+              className="lg:text-lg bg-[#e8e8ed94] text-[#1d1d1f] py-2.5  hover:bg-[#e8e8edd7] rounded-2xl cursor-pointer duration-300"
             >
               Start Interview
             </button>
