@@ -8,9 +8,31 @@ html {
   scroll-behavior: smooth;
 }
 
-/* * {
-  scrollbar-color: #3b3b3c #ffffff00;
-} */
+/* custom scrollbar - start */
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #ababab transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #ababab;
+  border-radius: 9999px;
+  background-clip: content-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -20,3 +42,53 @@ html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* custom scrollbar - end */
+
+/* floating input & textarea - start */
+
+.floating-input,
+.floating-textarea {
+  position: relative;
+}
+
+.floating-input input,
+.floating-textarea textarea {
+  width: 100%;
+  min-width: 200px;
+  padding: 1rem 0.8rem 0.6rem 0.8rem;
+  background: transparent;
+}
+
+.floating-input label {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.floating-textarea label {
+  position: absolute;
+  left: 0.8rem;
+  top: 0.8rem;
+}
+
+.floating-input label,
+.floating-textarea label {
+  color: #9ca3af;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.floating-input input:focus + label,
+.floating-input input:not(:placeholder-shown) + label,
+.floating-textarea textarea:focus + label,
+.floating-textarea textarea:not(:placeholder-shown) + label {
+  top: 0.2rem;
+  font-size: 0.75rem;
+  color: #3b82f6;
+  transform: none;
+}
+
+/* floating input & textarea - end */

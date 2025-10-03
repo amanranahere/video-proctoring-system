@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="absolute bottom-0.5 right-0.5 font-mono text-[#bababa] text-sm">
+    <footer className="min-h-[50vh] font-mono text-[#bababa] text-sm flex justify-center items-end">
       Made by{" "}
       <a
         href="https://amanrana.vercel.app"
