@@ -26,7 +26,7 @@ export default function StartInterview() {
 
   return (
     <section id="start-interview" className="py-20 lg:py-40">
-      <div className="relative w-[90%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-4 py-10 lg:px-24 lg:py-24 text-[#1d1d1f] bg-white rounded-4xl flex flex-col justify-center items-center overflow-hidden">
+      <div className="relative w-[90%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-4 py-10 lg:px-24 lg:py-24 text-[#1d1d1f] bg-white rounded-4xl flex flex-col justify-center items-center overflow-hidden shadow-2xl">
         <h2 className="pb-2 lg:pb-4 text-4xl lg:text-7xl font-semibold text-center">
           Start the Interview
         </h2>
