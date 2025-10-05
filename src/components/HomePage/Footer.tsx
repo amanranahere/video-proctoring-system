@@ -1,3 +1,5 @@
+import { sitemapItems } from "@/constants";
+
 export default function Footer() {
   return (
     <footer className="mx-4 lg:mx-32 pt-10 lg:pt-20 pb-6 lg:pb-6">
@@ -9,36 +11,15 @@ export default function Footer() {
         <div className="flex flex-col">
           <h3 className="text-[#6e6e73] mb-2">Sitemap</h3>
 
-          <a
-            href="#hero-section"
-            className="text-xl lg:text-[28px] text-[#333336] hover:text-black font-bold"
-          >
-            Overview
-          </a>
-          <a
-            href="#working-section"
-            className="text-xl lg:text-[28px] text-[#333336] hover:text-black font-bold"
-          >
-            How It Works
-          </a>
-          <a
-            href="#features-section"
-            className="text-xl lg:text-[28px] text-[#333336] hover:text-black font-bold"
-          >
-            Features
-          </a>
-          <a
-            href="#useCase-section"
-            className="text-xl lg:text-[28px] text-[#333336] hover:text-black font-bold"
-          >
-            Applications
-          </a>
-          <a
-            href="#start-interview"
-            className="text-xl lg:text-[28px] text-[#333336] hover:text-black font-bold"
-          >
-            Try It Now
-          </a>
+          {sitemapItems.map((item, index) => (
+            <a
+              key={index}
+              href={item.href}
+              className="text-xl lg:text-[28px] text-[#333336] hover:text-black font-bold"
+            >
+              {item.label}
+            </a>
+          ))}
         </div>
 
         <div className="flex flex-col">

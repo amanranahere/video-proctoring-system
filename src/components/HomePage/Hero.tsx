@@ -1,19 +1,50 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import { CircleArrowRight, Pause, Play } from "lucide-react";
+import { useRef, useState } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+  easeInOut,
+} from "motion/react";
+import { useWindowSize } from "@/utils/useWindowSize";
+import { sitemapItems } from "@/constants";
+
+const containerVariant = {
+  hidden: { opacity: 0, height: 0 },
+  show: {
+    opacity: 1,
+    height: "100%",
+    transition: {
+      staggerChildren: 0.06,
+    },
+  },
+  hiddenAgain: { opacity: 0, height: 0 },
+};
+
+const listVariant = {
+  hidden: { opacity: 0, y: -5 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.2, ease: easeInOut },
+  },
+  hiddenAgain: { opacity: 0, y: -5 },
+};
 
 export default function Hero() {
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const { width } = useWindowSize();
+  const isLg = width >= 1024;
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+
   const [isPlaying, setIsPlaying] = useState(true);
   const containerRef = useRef(null);
   const vidRef = useRef<HTMLVideoElement>(null);
   const { scrollY } = useScroll();
-
-  useEffect(() => {
-    setIsLargeScreen(window.innerWidth >= 1024);
-  }, []);
 
   const togglePlay = () => {
     const video = vidRef.current;
@@ -26,45 +57,100 @@ export default function Hero() {
     setIsPlaying(!isPlaying);
   };
 
-  const scale = useTransform(scrollY, [200, 400], [1, 0.83]);
-  const smoothScaleMotion = useSpring(scale, { stiffness: 150, damping: 25 });
+  const scale = useTransform(scrollY, [150, 400], [1, 0.83]);
+  const smoothScaleMotion = useSpring(scale, { stiffness: 200, damping: 25 });
   const borderRadiusMotion = useTransform(
     scrollY,
-    [200, 400],
+    [150, 400],
     ["0rem", "2rem"]
   );
 
-  const borderRadius = isLargeScreen ? borderRadiusMotion : "1rem";
-  const smoothScale = isLargeScreen ? smoothScaleMotion : 1;
+  const borderRadius = isLg ? borderRadiusMotion : "1rem";
+  const smoothScale = isLg ? smoothScaleMotion : 1;
 
   return (
-    <section
-      id="hero-section"
-      className="bg-[#fff] flex flex-col justify-center items-center gap-y-5 px-4 lg:px-0 overflow-hidden"
-    >
-      <h1 className="text-4xl lg:text-7xl text-center font-extrabold pt-32">
-        Video Proctoring System
-      </h1>
+    <section id="hero-section" className="bg-[#fff] overflow-hidden">
+      {/* navbar */}
+      <div className="w-full px-4 py-2 flex justify-between lg:justify-center items-center gap-x-20">
+        {/* logo */}
+        <div className="select-none">VPS</div>
 
-      <p className="text-[#86868b] max-w-4xl mx-auto text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold text-center text-balance">
-        A modern video proctoring system designed to demonstrate how{" "}
-        <span className="text-[#1d1d1f]">remote candidates</span> can be
-        monitored in real time. Using{" "}
-        <span className="text-[#1d1d1f]">computer vision checks</span>, it
-        showcases how suspicious activities are detected during
-        <span className="text-[#1d1d1f]"> online exams</span> and{" "}
-        <span className="text-[#1d1d1f]">interviews</span>.
-      </p>
+        {isLg ? (
+          <div className="flex justify-center gap-x-8">
+            {sitemapItems
+              .filter((item) => item.label !== "Overview")
+              .map((item, index) => (
+                <a
+                  key={index}
+                  href={item.href}
+                  className="text-xs text-[#000c] hover:text-black duration-300"
+                >
+                  {item.label}
+                </a>
+              ))}
+          </div>
+        ) : (
+          <>
+            <button
+              onClick={toggleMenu}
+              className="relative flex justify-center items-center cursor-pointer group z-[999] h-12 w-12"
+            >
+              <div
+                className={`absolute top-1/2  w-5 md:w-7 h-0.5 md:h-1 bg-[#000] rounded-full duration-300 ${
+                  menuOpen ? "-translate-y-0 rotate-45" : "-translate-y-1"
+                }`}
+              ></div>
+              <div
+                className={`absolute top-1/2  w-5 md:w-7 h-0.5 md:h-1 bg-[#000] rounded-full duration-300 ${
+                  menuOpen ? "translate-y-0 -rotate-45" : "translate-y-1"
+                }`}
+              ></div>
+            </button>
 
-      <a
-        href="#start-interview"
-        className="lg:text-lg bg-[#e8e8ed94] text-[#1d1d1f] pr-2.5 lg:pr-3 pl-4 lg:pl-6 py-2.5 flex lg:justify-center items-center gap-x-2 lg:gap-x-3 hover:bg-[#e8e8edd7] rounded-full duration-300"
-      >
-        <span className="select-nones font-medium whitespace-nowrap">
-          Start Interview
-        </span>
-        <CircleArrowRight className="w-7 h-7" />
-      </a>
+            <AnimatePresence mode="wait">
+              {menuOpen && (
+                <motion.div
+                  variants={containerVariant}
+                  initial="hidden"
+                  animate="show"
+                  exit="hiddenAgain"
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="fixed inset-0 px-7 md:px-10 py-20 md:py-32 bg-white flex flex-col gap-y-4 md:gap-y-6 z-[998]"
+                >
+                  {sitemapItems.map((item, index) => (
+                    <motion.a
+                      onClick={() => setMenuOpen(false)}
+                      variants={listVariant}
+                      key={index}
+                      href={item.href}
+                      className="text-3xl md:text-5xl text-[#333336] hover:text-black font-bold"
+                    >
+                      {item.label}
+                    </motion.a>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
+        )}
+      </div>
+
+      <div className="grid lg:grid-cols-5 mx-4 lg:mx-28 pt-20 pb-10 lg:pt-40 lg:pb-24">
+        <h1 className="col-span-3 text-4xl lg:text-7xl font-extrabold">
+          Video <br />
+          Proctoring System
+        </h1>
+
+        <p className="col-span-2 text-[#86868b] max-w-4xl mx-auto mt-3 text-lg lg:text-xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold">
+          A modern video proctoring system designed to demonstrate how{" "}
+          <span className="text-[#1d1d1f]">remote candidates</span> can be
+          monitored in real time. Using{" "}
+          <span className="text-[#1d1d1f]">computer vision checks</span>, it
+          showcases how suspicious activities are detected during
+          <span className="text-[#1d1d1f]"> online exams</span> and{" "}
+          <span className="text-[#1d1d1f]">interviews</span>.
+        </p>
+      </div>
 
       {/* video */}
       <motion.div
@@ -74,7 +160,7 @@ export default function Hero() {
           borderRadius,
           transformOrigin: "center top",
         }}
-        className="relative w-full h-full overflow-hidden group"
+        className="relative w-full h-full px-4 lg:px-0 overflow-hidden group"
       >
         <video
           ref={vidRef}
@@ -88,13 +174,13 @@ export default function Hero() {
 
         <button
           onClick={togglePlay}
-          className="absolute bottom-3 right-3 lg:bottom-10 lg:right-10 lg:opacity-0 group-hover:opacity-100 duration-300 text-[#0000008f] bg-[#e8e8ede2] hover:bg-[#adadb1] active:scale-95 lg:active:scale-100 backdrop-blur-sm p-2 lg:p-3 rounded-full cursor-pointer outline-none"
+          className="absolute bottom-4 right-7 md:bottom-8 md:right-10 lg:bottom-10 lg:right-10 lg:opacity-0 group-hover:opacity-100 duration-300 text-[#0000008f] bg-[#e8e8ede2] hover:bg-[#adadb1] active:scale-95 lg:active:scale-100 backdrop-blur-sm p-2 lg:p-3 rounded-full cursor-pointer outline-none"
         >
           {isPlaying ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width={isLargeScreen ? "19" : "14"}
-              height={isLargeScreen ? "19" : "14"}
+              width={isLg ? "19" : "14"}
+              height={isLg ? "19" : "14"}
               viewBox="0 0 24 24"
               fill="0000008f"
               stroke="currentColor"
@@ -109,8 +195,8 @@ export default function Hero() {
           ) : (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width={isLargeScreen ? "19" : "14"}
-              height={isLargeScreen ? "19" : "14"}
+              width={isLg ? "19" : "14"}
+              height={isLg ? "19" : "14"}
               viewBox="0 0 24 24"
               fill="#0000008f"
               stroke="currentColor"
