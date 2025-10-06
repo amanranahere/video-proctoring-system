@@ -2,8 +2,8 @@ import { sitemapItems } from "@/constants";
 
 export default function Footer() {
   return (
-    <footer className="mx-4 lg:mx-32 pt-10 lg:pt-20 pb-6 lg:pb-6">
-      <h2 className="pb-6 lg:pb-14 text-3xl lg:text-7xl font-semibold">
+    <footer className="mx-4 md:mx-12 lg:mx-32 pt-10 lg:pt-20 pb-6 lg:pb-6">
+      <h2 className="pb-6 lg:pb-14 text-3xl md:text-4xl lg:text-7xl font-semibold">
         Video Proctoring System
       </h2>
 

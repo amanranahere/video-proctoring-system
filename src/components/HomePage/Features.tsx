@@ -99,8 +99,8 @@ export default function Features() {
 
   return (
     <section id="features-section" className="w-full h-full py-20 lg:py-40">
-      <h2 className="mx-4 lg:mx-32 pb-6 lg:pb-12 text-4xl lg:text-7xl font-semibold">
-        Features.
+      <h2 className="mx-4 md:mx-12 lg:mx-32 pb-6 lg:pb-12 text-4xl md:text-5xl lg:text-7xl font-semibold">
+        Features
       </h2>
 
       <div className="relative w-[95%] h-full lg:h-[95vh] py-3 md:py-6 lg:py-24 lg:px-24 bg-white rounded-4xl flex flex-col-reverse lg:flex-row items-center justify-end lg:justify-normal gap-y-5 lg:gap-y-0 overflow-hidden mx-auto">

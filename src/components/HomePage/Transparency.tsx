@@ -74,11 +74,11 @@ export default function Transparency() {
 
   return (
     <section id="transparency-section" className="mx-4 lg:mx-32 py-20 lg:py-40">
-      <h2 className="pb-2 lg:pb-4 text-4xl lg:text-7xl font-semibold">
+      <h2 className="pb-2 lg:pb-4 md:mx-8 lg:mx-0 text-4xl md:text-5xl lg:text-7xl font-semibold">
         Trust and Transparency.
       </h2>
 
-      <p className="max-w-4xl pb-6 lg:pb-12 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance">
+      <p className="max-w-4xl pb-6 lg:pb-12 md:mx-8 lg:mx-0 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance">
         We believe <span className="text-[#1d1d1f]">confidence</span> is earned
         by being <span className="text-[#1d1d1f]">open</span> about how the
         system works and by protecting what matters most —{" "}
@@ -185,7 +185,7 @@ export default function Transparency() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="relative w-[90%] lg:w-[50%] px-8 lg:px-20 pt-16 lg:pt-24 pb-8 lg:pb-20 bg-white z-[90] rounded-4xl flex flex-col gap-y-6"
+              className="relative w-[90%] md:w-[70%] lg:w-[50%] px-8 lg:px-20 pt-16 lg:pt-24 pb-8 lg:pb-20 bg-white rounded-4xl flex flex-col gap-y-6 z-30"
             >
               <h3 className="text-4xl lg:text-[56px] font-bold lg:leading-14">
                 {modalData[activeIndex].title}
@@ -211,7 +211,7 @@ export default function Transparency() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
               onClick={() => setActiveIndex(null)}
-              className="fixed inset-0 bg-black/40 backdrop-blur-lg z-50"
+              className="fixed inset-0 bg-black/40 backdrop-blur-lg z-20"
             ></motion.div>
           </div>
         )}

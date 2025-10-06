@@ -49,11 +49,11 @@ const listVariant = {
 export default function Working() {
   return (
     <section id="working-section" className="mx-4 lg:mx-32 py-20 lg:py-40">
-      <h2 className="pb-2 lg:pb-4 text-4xl lg:text-7xl font-semibold">
+      <h2 className="pb-2 lg:pb-4 md:mx-8 lg:mx-0 text-4xl md:text-5xl lg:text-7xl font-semibold">
         How it Works.
       </h2>
 
-      <p className="max-w-4xl pb-6 lg:pb-12 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance">
+      <p className="max-w-4xl pb-6 lg:pb-12 md:mx-8 lg:mx-0 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance">
         The system uses{" "}
         <span className="text-[#1d1d1f]">real-time video analysis</span> and{" "}
         <span className="text-[#1d1d1f]">computer vision</span> techniques to
@@ -74,7 +74,7 @@ export default function Working() {
             key={index}
             className="bg-white rounded-4xl text-[#1d1d1f] hover:scale-[1.02] duration-500"
           >
-            <div className="p-7 md:p-8 flex flex-col gap-y-1.5 lg:gap-y-2.5">
+            <div className="p-7 md:p-5 lg:p-8 flex flex-col gap-y-1.5 lg:gap-y-2.5">
               <p className="text-sm md:text-base font-bold">{item.number}</p>
 
               <h3 className="text-2xl md:text-3xl font-semibold lg:font-bold">

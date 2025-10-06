@@ -64,11 +64,11 @@ export default function UseCase() {
 
   return (
     <section id="useCase-section" className="bg-white py-20 lg:py-40">
-      <h2 className="mx-4 lg:mx-32 pb-6 lg:pb-12 text-4xl lg:text-7xl font-semibold">
+      <h2 className="mx-4 md:mx-12 lg:mx-32 pb-6 lg:pb-12 text-4xl md:text-5xl lg:text-7xl font-semibold">
         Where Can This Be Used?
       </h2>
 
-      <div className="relative w-[90%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-5 lg:px-0 py-2 lg:py-0 lg:pl-24 text-[#1d1d1f] bg-[#f5f5f7] rounded-4xl overflow-hidden grid lg:grid-cols-5 gap-8">
+      <div className="relative w-[90%] md:w-[95%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-5 lg:px-0 py-2 lg:py-0 lg:pl-24 text-[#1d1d1f] bg-[#f5f5f7] rounded-4xl overflow-hidden grid lg:grid-cols-5 gap-8">
         <motion.ul
           initial="hidden"
           whileInView="show"

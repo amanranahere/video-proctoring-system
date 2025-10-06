@@ -27,11 +27,11 @@ export default function StartInterview() {
   return (
     <section id="start-interview" className="py-20 lg:py-40">
       <div className="relative w-[90%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-4 py-10 lg:px-24 lg:py-24 text-[#1d1d1f] bg-white rounded-4xl flex flex-col justify-center items-center overflow-hidden shadow-2xl">
-        <h2 className="pb-2 lg:pb-4 text-4xl lg:text-7xl font-semibold text-center">
+        <h2 className="pb-2 lg:pb-4 text-4xl md:text-5xl lg:text-7xl font-semibold text-center">
           Start the Interview
         </h2>
 
-        <p className="max-w-5xl pb-6 lg:pb-12 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance text-center">
+        <p className="max-w-4xl pb-6 lg:pb-12 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold text-center">
           This is a demo of our video proctoring system. Instead of a
           candidate's video, your own camera feed will be visible so you can
           explore how the checks and warnings work in real time.
@@ -39,7 +39,7 @@ export default function StartInterview() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full lg:max-w-max lg:min-w-2xl grid lg:grid-cols-2 gap-2"
+          className="w-full lg:max-w-max lg:min-w-2xl grid lg:grid-cols-2 gap-2 md:p-6"
         >
           <div className="flex flex-col gap-2">
             {/* interview title */}

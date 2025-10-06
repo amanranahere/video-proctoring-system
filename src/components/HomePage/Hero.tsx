@@ -71,7 +71,7 @@ export default function Hero() {
   return (
     <section id="hero-section" className="bg-[#fff] overflow-hidden">
       {/* navbar */}
-      <div className="w-full px-4 py-2 flex justify-between lg:justify-center items-center gap-x-20">
+      <header className="w-full px-4 py-2.5 lg:px-32 flex justify-between items-center ">
         {/* logo */}
         <div className="select-none">VPS</div>
 
@@ -93,7 +93,7 @@ export default function Hero() {
           <>
             <button
               onClick={toggleMenu}
-              className="relative flex justify-center items-center cursor-pointer group z-[999] h-12 w-12"
+              className="relative flex justify-center items-center cursor-pointer group z-[99] h-12 w-12"
             >
               <div
                 className={`absolute top-1/2  w-5 md:w-7 h-0.5 md:h-1 bg-[#000] rounded-full duration-300 ${
@@ -115,7 +115,7 @@ export default function Hero() {
                   animate="show"
                   exit="hiddenAgain"
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="fixed inset-0 px-7 md:px-10 py-20 md:py-32 bg-white flex flex-col gap-y-4 md:gap-y-6 z-[998]"
+                  className="fixed inset-0 px-7 md:px-10 py-20 md:py-32 bg-white flex flex-col gap-y-4 md:gap-y-6 z-[90]"
                 >
                   {sitemapItems.map((item, index) => (
                     <motion.a
@@ -133,10 +133,10 @@ export default function Hero() {
             </AnimatePresence>
           </>
         )}
-      </div>
+      </header>
 
-      <div className="grid lg:grid-cols-5 mx-4 lg:mx-28 pt-20 pb-10 lg:pt-40 lg:pb-24">
-        <h1 className="col-span-3 text-4xl lg:text-7xl font-extrabold">
+      <div className="grid lg:grid-cols-5 mx-4 md:mx-12 lg:mx-28 pt-20 pb-10 lg:pt-40 lg:pb-24">
+        <h1 className="col-span-3 text-4xl md:text-5xl lg:text-7xl font-extrabold">
           Video <br />
           Proctoring System
         </h1>
@@ -160,7 +160,7 @@ export default function Hero() {
           borderRadius,
           transformOrigin: "center top",
         }}
-        className="relative w-full h-full px-4 lg:px-0 overflow-hidden group"
+        className="relative w-full h-full px-4 md:px-12 lg:px-0 overflow-hidden group"
       >
         <video
           ref={vidRef}
@@ -174,7 +174,7 @@ export default function Hero() {
 
         <button
           onClick={togglePlay}
-          className="absolute bottom-4 right-7 md:bottom-8 md:right-10 lg:bottom-10 lg:right-10 lg:opacity-0 group-hover:opacity-100 duration-300 text-[#0000008f] bg-[#e8e8ede2] hover:bg-[#adadb1] active:scale-95 lg:active:scale-100 backdrop-blur-sm p-2 lg:p-3 rounded-full cursor-pointer outline-none"
+          className="absolute bottom-4 right-7 md:bottom-8 md:right-20 lg:bottom-10 lg:right-10 lg:opacity-0 group-hover:opacity-100 duration-300 text-[#0000008f] bg-[#e8e8ede2] hover:bg-[#adadb1] active:scale-95 lg:active:scale-100 backdrop-blur-sm p-2 lg:p-3 rounded-full cursor-pointer outline-none"
         >
           {isPlaying ? (
             <svg
