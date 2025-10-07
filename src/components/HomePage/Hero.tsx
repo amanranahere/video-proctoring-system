@@ -82,7 +82,7 @@ export default function Hero() {
               .map((item, index) => (
                 <a
                   key={index}
-                  href={item.href}
+                  href={`#${item.id}`}
                   className="text-xs text-[#000c] hover:text-black duration-300"
                 >
                   {item.label}
@@ -122,7 +122,7 @@ export default function Hero() {
                       onClick={() => setMenuOpen(false)}
                       variants={listVariant}
                       key={index}
-                      href={item.href}
+                      href={`#${item.id}`}
                       className="text-3xl md:text-5xl text-[#333336] hover:text-black font-bold"
                     >
                       {item.label}

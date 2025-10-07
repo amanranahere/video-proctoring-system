@@ -14,7 +14,7 @@ export default function Footer() {
           {sitemapItems.map((item, index) => (
             <a
               key={index}
-              href={item.href}
+              href={`#${item.id}`}
               className="text-xl lg:text-[28px] text-[#333336] hover:text-black font-bold"
             >
               {item.label}

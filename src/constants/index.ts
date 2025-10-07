@@ -1,22 +1,22 @@
 export const sitemapItems = [
   {
     label: "Overview",
-    href: "#hero-section",
+    id: "hero-section",
   },
   {
     label: "How It Works",
-    href: "#working-section",
+    id: "working-section",
   },
   {
     label: "Features",
-    href: "#features-section",
+    id: "features-section",
   },
   {
     label: "Applications",
-    href: "#useCase-section",
+    id: "useCase-section",
   },
   {
     label: "Try It Now",
-    href: "#start-interview",
+    id: "start-interview",
   },
 ];

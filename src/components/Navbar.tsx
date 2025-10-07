@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, easeInOut } from "motion/react";
 import { useWindowSize } from "@/utils/useWindowSize";
@@ -37,11 +37,57 @@ const listVariant = {
 };
 
 export default function Navbar() {
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
+  const [indicator, setIndicator] = useState<{ left: number; width: number }>({
+    left: 0,
+    width: 0,
+  });
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+
   const { width } = useWindowSize();
   const isLg = width >= 1024;
+
+  useEffect(() => {
+    const sectionIds = [
+      "hero-section",
+      "working-section",
+      "features-section",
+      "useCase-section",
+      "transparency-section",
+      "start-interview",
+    ];
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((e) => e.isIntersecting);
+        if (visible) setActiveSection(visible.target.id);
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    sections.forEach((sec) => observer.observe(sec));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isLg) return;
+
+    if (activeSection && linkRefs.current[activeSection]) {
+      const el = linkRefs.current[activeSection]!;
+      const { offsetLeft, offsetWidth } = el;
+      setIndicator({ left: offsetLeft, width: offsetWidth });
+    }
+  }, [activeSection]);
 
   return (
     <motion.nav
@@ -50,7 +96,7 @@ export default function Navbar() {
       exit={{ y: -50 }}
       layout
       transition={{
-        duration: 0.35,
+        duration: 0.3,
         ease: "easeInOut",
         layout: { duration: 0.2, ease: "easeInOut" },
       }}
@@ -63,18 +109,26 @@ export default function Navbar() {
         </div>
 
         {isLg ? (
-          <div className="flex justify-center gap-x-8">
-            {sitemapItems
-              .filter((item) => item.label !== "Overview")
-              .map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  className="text-xs text-[#000c] hover:text-black duration-300"
-                >
-                  {item.label}
-                </a>
-              ))}
+          <div className="relative flex justify-center gap-x-8">
+            {sitemapItems.map((item, index) => (
+              <a
+                key={index}
+                href={`#${item.id}`}
+                ref={(el) => {
+                  linkRefs.current[item.id] = el;
+                }}
+                className="text-xs text-[#000c] hover:text-black duration-300"
+              >
+                {item.label}
+              </a>
+            ))}
+
+            <motion.div
+              layout
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              animate={{ left: indicator.left, width: indicator.width }}
+              className="absolute -bottom-4 h-[2px] bg-black rounded-full"
+            />
           </div>
         ) : (
           <button
@@ -96,15 +150,19 @@ export default function Navbar() {
             initial="hidden"
             animate="show"
             exit="hiddenAgain"
-            className="w-full h-full px-7 md:px-10 py-7 md:py-8 bg-white flex flex-col gap-y-2 z-20"
+            className="w-full h-full px-4 py-7 md:py-8 bg-white flex flex-col gap-y-5 z-20"
           >
             {sitemapItems.map((item, index) => (
               <motion.a
                 onClick={() => setMenuOpen(false)}
                 variants={listVariant}
                 key={index}
-                href={item.href}
-                className="text-base text-[16px] text-[#333336] hover:text-black"
+                href={`#${item.id}`}
+                className={`px-3 md:px-6 text-base text-[16px] leading-2.5 hover:text-black border-l-2 ${
+                  activeSection === item.id
+                    ? "text-black border-black"
+                    : "text-[#333336da] border-transparent"
+                }`}
               >
                 {item.label}
               </motion.a>
@@ -116,8 +174,8 @@ export default function Navbar() {
       {/* bottom border */}
       <div className="h-[1px] bg-gray-300 z-20"></div>
 
+      {/* blurred bg */}
       <AnimatePresence mode="wait">
-        {/* blurred bg */}
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0 }}
