@@ -99,9 +99,18 @@ export default function Features() {
 
   return (
     <section id="features-section" className="w-full h-full py-20 lg:py-40">
-      <h2 className="mx-4 md:mx-12 lg:mx-32 pb-6 lg:pb-12 text-4xl md:text-5xl lg:text-7xl font-semibold">
-        Features
-      </h2>
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 1, delay: 0.3, ease: "easeOut" },
+          y: { duration: 0.8, ease: "easeOut" },
+        }}
+        viewport={{ once: true }}
+        className="mx-4 md:mx-12 lg:mx-32 pb-6 lg:pb-12 text-4xl md:text-5xl lg:text-7xl font-semibold"
+      >
+        Key Features.
+      </motion.h2>
 
       <div className="relative w-[95%] h-full lg:h-[95vh] py-3 md:py-6 lg:py-24 lg:px-24 bg-white rounded-4xl flex flex-col-reverse lg:flex-row items-center justify-end lg:justify-normal gap-y-5 lg:gap-y-0 overflow-hidden mx-auto">
         {/* buttons */}
@@ -191,12 +200,12 @@ export default function Features() {
 
         {/* image */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.4 }}
           layout
           transition={{
-            duration: 0.5,
+            duration: 0.6,
             ease: "easeOut",
             layout: {
               type: "spring",

@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { motion } from "motion/react";
 
 type FormValues = {
   title: string;
@@ -26,7 +27,16 @@ export default function StartInterview() {
 
   return (
     <section id="start-interview" className="py-20 lg:py-40">
-      <div className="relative w-[90%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-4 py-10 lg:px-24 lg:py-24 text-[#1d1d1f] bg-white rounded-4xl flex flex-col justify-center items-center overflow-hidden shadow-2xl">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 0.8, delay: 0.5, ease: "easeOut" },
+          y: { duration: 0.8, delay: 0.2, ease: "easeOut" },
+        }}
+        viewport={{ once: true }}
+        className="relative w-[95%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-4 py-10 lg:px-24 lg:py-24 text-[#1d1d1f] bg-white rounded-4xl flex flex-col justify-center items-center overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.12)]"
+      >
         <h2 className="pb-2 lg:pb-4 text-4xl md:text-5xl lg:text-7xl font-semibold text-center">
           Start the Interview
         </h2>
@@ -145,7 +155,7 @@ export default function StartInterview() {
             </button>
           </div>
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -74,16 +74,34 @@ export default function Transparency() {
 
   return (
     <section id="transparency-section" className="mx-4 lg:mx-32 py-20 lg:py-40">
-      <h2 className="pb-2 lg:pb-4 md:mx-8 lg:mx-0 text-4xl md:text-5xl lg:text-7xl font-semibold">
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 1, delay: 0.3, ease: "easeOut" },
+          y: { duration: 0.8, ease: "easeOut" },
+        }}
+        viewport={{ once: true }}
+        className="pb-2 lg:pb-4 md:mx-8 lg:mx-0 text-4xl md:text-5xl lg:text-7xl font-semibold"
+      >
         Trust and Transparency.
-      </h2>
+      </motion.h2>
 
-      <p className="max-w-4xl pb-6 lg:pb-12 md:mx-8 lg:mx-0 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance">
+      <motion.p
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 1, delay: 0.3, ease: "easeOut" },
+          y: { duration: 0.8, ease: "easeOut" },
+        }}
+        viewport={{ once: true }}
+        className="max-w-4xl pb-6 lg:pb-12 md:mx-8 lg:mx-0 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance"
+      >
         We believe <span className="text-[#1d1d1f]">confidence</span> is earned
         by being <span className="text-[#1d1d1f]">open</span> about how the
         system works and by protecting what matters most —{" "}
         <span className="text-[#1d1d1f]">your privacy</span>.
-      </p>
+      </motion.p>
 
       <div className="w-full grid md:grid-cols-3 gap-3 lg:gap-6 select-none">
         <motion.button

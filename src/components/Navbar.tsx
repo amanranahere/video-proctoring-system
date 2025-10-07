@@ -71,7 +71,7 @@ export default function Navbar() {
         if (visible) setActiveSection(visible.target.id);
       },
       {
-        threshold: 0.5,
+        threshold: 0.4,
       }
     );
 
@@ -127,7 +127,7 @@ export default function Navbar() {
               layout
               transition={{ duration: 0.4, ease: "easeInOut" }}
               animate={{ left: indicator.left, width: indicator.width }}
-              className="absolute -bottom-4 h-[2px] bg-black rounded-full"
+              className="absolute -bottom-4 h-[1px] bg-black rounded-full"
             />
           </div>
         ) : (

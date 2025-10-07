@@ -18,7 +18,10 @@ const containerVariant = {
     opacity: 1,
     height: "100%",
     transition: {
-      staggerChildren: 0.06,
+      duration: 0.3,
+      ease: easeInOut,
+      delayChildren: 0.2,
+      staggerChildren: 0.04,
     },
   },
   hiddenAgain: { opacity: 0, height: 0 },
@@ -29,7 +32,7 @@ const listVariant = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.2, ease: easeInOut },
+    transition: { duration: 0.4, ease: easeInOut },
   },
   hiddenAgain: { opacity: 0, y: -5 },
 };
@@ -57,15 +60,11 @@ export default function Hero() {
     setIsPlaying(!isPlaying);
   };
 
-  const scale = useTransform(scrollY, [150, 400], [1, 0.83]);
-  const smoothScaleMotion = useSpring(scale, { stiffness: 200, damping: 25 });
-  const borderRadiusMotion = useTransform(
-    scrollY,
-    [150, 400],
-    ["0rem", "2rem"]
-  );
+  const scale = useTransform(scrollY, [80, 440], [1, 0.83]);
+  const smoothScaleMotion = useSpring(scale, { stiffness: 800, damping: 50 });
+  const borderRadiusMotion = useTransform(scrollY, [80, 440], ["0rem", "2rem"]);
 
-  const borderRadius = isLg ? borderRadiusMotion : "1rem";
+  const borderRadius = isLg ? borderRadiusMotion : "0rem";
   const smoothScale = isLg ? smoothScaleMotion : 1;
 
   return (
@@ -114,7 +113,6 @@ export default function Hero() {
                   initial="hidden"
                   animate="show"
                   exit="hiddenAgain"
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="fixed inset-0 px-7 md:px-10 py-20 md:py-32 bg-white flex flex-col gap-y-4 md:gap-y-6 z-[90]"
                 >
                   {sitemapItems.map((item, index) => (
@@ -135,7 +133,15 @@ export default function Hero() {
         )}
       </header>
 
-      <div className="grid lg:grid-cols-5 mx-4 md:mx-12 lg:mx-28 pt-20 pb-10 lg:pt-40 lg:pb-24">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 1, delay: 0.3, ease: "easeOut" },
+          y: { duration: 0.8, ease: "easeOut" },
+        }}
+        className="grid lg:grid-cols-5 mx-4 md:mx-12 lg:mx-28 pt-20 pb-10 lg:pt-40 lg:pb-24"
+      >
         <h1 className="col-span-3 text-4xl md:text-5xl lg:text-7xl font-extrabold">
           Video <br />
           Proctoring System
@@ -150,7 +156,7 @@ export default function Hero() {
           <span className="text-[#1d1d1f]"> online exams</span> and{" "}
           <span className="text-[#1d1d1f]">interviews</span>.
         </p>
-      </div>
+      </motion.div>
 
       {/* video */}
       <motion.div
@@ -160,12 +166,18 @@ export default function Hero() {
           borderRadius,
           transformOrigin: "center top",
         }}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 0.8, delay: 0.5, ease: "easeOut" },
+          y: { duration: 0.8, delay: 0.2, ease: "easeOut" },
+        }}
         className="relative w-full h-full px-4 md:px-12 lg:px-0 overflow-hidden group"
       >
         <video
           ref={vidRef}
           src="/preview-vid.mp4"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-2xl md:rounded-4xl lg:rounded-none"
           autoPlay
           muted
           loop

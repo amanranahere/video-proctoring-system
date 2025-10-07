@@ -29,7 +29,7 @@ const data = [
 const containerVariant = {
   show: {
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.1,
     },
   },
 };
@@ -40,8 +40,8 @@ const listVariant = {
     opacity: 1,
     y: 0,
     transition: {
-      opacity: { duration: 1, delay: 0.8, ease: easeOut },
-      y: { duration: 0.8, ease: easeOut },
+      opacity: { duration: 2, delay: 1.2, ease: easeOut },
+      y: { duration: 1.2, ease: easeOut },
     },
   },
 };
@@ -49,17 +49,35 @@ const listVariant = {
 export default function Working() {
   return (
     <section id="working-section" className="mx-4 lg:mx-32 py-20 lg:py-40">
-      <h2 className="pb-2 lg:pb-4 md:mx-8 lg:mx-0 text-4xl md:text-5xl lg:text-7xl font-semibold">
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 1, delay: 0.3, ease: "easeOut" },
+          y: { duration: 0.8, ease: "easeOut" },
+        }}
+        viewport={{ once: true }}
+        className="pb-2 lg:pb-4 md:mx-8 lg:mx-0 text-4xl md:text-5xl lg:text-7xl font-semibold"
+      >
         How it Works.
-      </h2>
+      </motion.h2>
 
-      <p className="max-w-4xl pb-6 lg:pb-12 md:mx-8 lg:mx-0 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance">
+      <motion.p
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 1, delay: 0.3, ease: "easeOut" },
+          y: { duration: 0.8, ease: "easeOut" },
+        }}
+        viewport={{ once: true }}
+        className="max-w-4xl pb-6 lg:pb-12 md:mx-8 lg:mx-0 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance"
+      >
         The system uses{" "}
         <span className="text-[#1d1d1f]">real-time video analysis</span> and{" "}
         <span className="text-[#1d1d1f]">computer vision</span> techniques to
         monitor candidates during online assessments. Here's a quick look at the
         process.
-      </p>
+      </motion.p>
 
       <motion.ul
         initial="hidden"

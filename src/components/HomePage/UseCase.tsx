@@ -32,25 +32,6 @@ const useCases = [
   },
 ];
 
-const containerVariant = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const listVariant = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: easeOut },
-  },
-};
-
 export default function UseCase() {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
@@ -64,24 +45,32 @@ export default function UseCase() {
 
   return (
     <section id="useCase-section" className="bg-white py-20 lg:py-40">
-      <h2 className="mx-4 md:mx-12 lg:mx-32 pb-6 lg:pb-12 text-4xl md:text-5xl lg:text-7xl font-semibold">
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 1, delay: 0.3, ease: "easeOut" },
+          y: { duration: 0.8, ease: "easeOut" },
+        }}
+        viewport={{ once: true }}
+        className="mx-4 md:mx-12 lg:mx-32 pb-6 lg:pb-12 text-4xl md:text-5xl lg:text-7xl font-semibold"
+      >
         Where Can This Be Used?
-      </h2>
+      </motion.h2>
 
-      <div className="relative w-[90%] md:w-[95%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-5 lg:px-0 py-2 lg:py-0 lg:pl-24 text-[#1d1d1f] bg-[#f5f5f7] rounded-4xl overflow-hidden grid lg:grid-cols-5 gap-8">
-        <motion.ul
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariant}
-          className="lg:col-span-2 flex flex-col justify-center divide-y-[0.5px] divide-gray-300"
-        >
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          opacity: { duration: 0.8, delay: 0.5, ease: "easeOut" },
+          y: { duration: 0.8, delay: 0.2, ease: "easeOut" },
+        }}
+        viewport={{ once: true }}
+        className="relative w-[90%] md:w-[95%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-5 lg:px-0 py-2 lg:py-0 lg:pl-24 text-[#1d1d1f] bg-[#f5f5f7] rounded-4xl overflow-hidden grid lg:grid-cols-5 gap-8"
+      >
+        <ul className="lg:col-span-2 flex flex-col justify-center divide-y-[0.5px] divide-gray-300">
           {useCases.map((item, index) => (
-            <motion.li
-              variants={listVariant}
-              key={index}
-              className="first:pt-0 last:pb-0 select-none"
-            >
+            <li key={index} className="first:pt-0 last:pb-0 select-none">
               <button
                 onClick={() => toggleItem(index)}
                 className={`relative w-full flex justify-between items-center z-20 pt-5 lg:pt-7 cursor-pointer bg-[#f5f5f7] ${
@@ -125,9 +114,9 @@ export default function UseCase() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.li>
+            </li>
           ))}
-        </motion.ul>
+        </ul>
 
         {/* image on lg screens */}
         <div className="hidden lg:flex justify-center items-center lg:col-span-3">
@@ -150,7 +139,7 @@ export default function UseCase() {
             )}
           </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
