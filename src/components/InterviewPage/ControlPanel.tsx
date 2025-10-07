@@ -1,13 +1,11 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { Clapperboard, Square, Play, Pause, Camera, Power } from "lucide-react";
 import { useLogStore } from "@/store/logStore";
+import useInterviewStore from "@/store/InterviewStore";
 
 export default function ControlPanel() {
-  // const [recording, setRecording] = useState(false);
-  // const [paused, setPaused] = useState(false);
-
   const {
     isRecording,
     isPaused,
@@ -17,6 +15,8 @@ export default function ControlPanel() {
     resumeRecording,
     takeScreenshot,
   } = useLogStore();
+
+  const { clearInterviewData } = useInterviewStore();
 
   const videoEl = useRef<HTMLVideoElement | null>(null);
 

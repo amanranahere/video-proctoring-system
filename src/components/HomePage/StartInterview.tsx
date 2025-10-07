@@ -3,8 +3,11 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { motion } from "motion/react";
+import useInterviewStore from "@/store/InterviewStore";
+import { v4 as uuidv4 } from "uuid";
 
 type FormValues = {
+  id: string;
   title: string;
   candidateName: string;
   interviewerName: string;
@@ -14,6 +17,7 @@ type FormValues = {
 
 export default function StartInterview() {
   const router = useRouter();
+  const { setInterviewData } = useInterviewStore();
 
   const {
     register,
@@ -22,7 +26,18 @@ export default function StartInterview() {
   } = useForm<FormValues>();
 
   const onSubmit = (data: FormValues) => {
-    router.push("/interview");
+    const id = uuidv4();
+
+    setInterviewData({
+      id,
+      title: data.title,
+      candidateName: data.candidateName,
+      interviewerName: data.interviewerName,
+      duration: data.duration,
+      notes: data.notes,
+    });
+
+    router.push(`/interview/${id}`);
   };
 
   return (
