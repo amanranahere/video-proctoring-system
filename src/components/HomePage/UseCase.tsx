@@ -44,7 +44,7 @@ export default function UseCase() {
   };
 
   return (
-    <section id="useCase-section" className="bg-white py-20 lg:py-40">
+    <section id="applications-section" className="bg-white py-20 lg:py-40">
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

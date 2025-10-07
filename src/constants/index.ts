@@ -13,7 +13,7 @@ export const sitemapItems = [
   },
   {
     label: "Applications",
-    id: "useCase-section",
+    id: "applications-section",
   },
   {
     label: "Transparency",

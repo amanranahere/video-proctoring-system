@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, easeInOut } from "motion/react";
 import { useWindowSize } from "@/utils/useWindowSize";
 import { sitemapItems } from "@/constants";
+import { handleScrollToView } from "@/utils/handleScrollToView";
 
 const containerVariant = {
   hidden: {},
@@ -46,7 +47,7 @@ export default function Navbar() {
     left: 0,
     width: 0,
   });
-  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const linkRefs = useRef<Record<string, HTMLLIElement | null>>({});
 
   const { width } = useWindowSize();
   const isLg = width >= 1024;
@@ -56,7 +57,7 @@ export default function Navbar() {
       "hero-section",
       "working-section",
       "features-section",
-      "useCase-section",
+      "applications-section",
       "transparency-section",
       "start-interview",
     ];
@@ -109,18 +110,18 @@ export default function Navbar() {
         </div>
 
         {isLg ? (
-          <div className="relative flex justify-center gap-x-8">
+          <ul className="relative flex justify-center gap-x-8">
             {sitemapItems.map((item, index) => (
-              <a
+              <li
                 key={index}
-                href={`#${item.id}`}
+                onClick={() => handleScrollToView(item.id)}
                 ref={(el) => {
                   linkRefs.current[item.id] = el;
                 }}
-                className="text-xs text-[#000c] hover:text-black duration-300"
+                className="text-xs text-[#000c] hover:text-black duration-300 cursor-pointer"
               >
                 {item.label}
-              </a>
+              </li>
             ))}
 
             <motion.div
@@ -129,7 +130,7 @@ export default function Navbar() {
               animate={{ left: indicator.left, width: indicator.width }}
               className="absolute -bottom-4 h-[1px] bg-black rounded-full"
             />
-          </div>
+          </ul>
         ) : (
           <button
             onClick={toggleMenu}
@@ -145,7 +146,7 @@ export default function Navbar() {
       {/* menu */}
       <AnimatePresence mode="wait">
         {menuOpen && (
-          <motion.div
+          <motion.ul
             variants={containerVariant}
             initial="hidden"
             animate="show"
@@ -153,21 +154,23 @@ export default function Navbar() {
             className="w-full h-full px-4 py-7 md:py-8 bg-white flex flex-col gap-y-5 z-20"
           >
             {sitemapItems.map((item, index) => (
-              <motion.a
-                onClick={() => setMenuOpen(false)}
+              <motion.li
+                onClick={() => {
+                  setMenuOpen(false);
+                  handleScrollToView(item.id);
+                }}
                 variants={listVariant}
                 key={index}
-                href={`#${item.id}`}
-                className={`px-3 md:px-6 text-base text-[16px] leading-2.5 hover:text-black border-l-2 ${
+                className={`px-3 md:px-6 text-base text-[16px] leading-2.5 hover:text-black border-l-2 cursor-pointer ${
                   activeSection === item.id
                     ? "text-black border-black"
                     : "text-[#333336da] border-transparent"
                 }`}
               >
                 {item.label}
-              </motion.a>
+              </motion.li>
             ))}
-          </motion.div>
+          </motion.ul>
         )}
       </AnimatePresence>
 

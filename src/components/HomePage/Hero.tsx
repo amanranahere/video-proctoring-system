@@ -11,6 +11,7 @@ import {
 } from "motion/react";
 import { useWindowSize } from "@/utils/useWindowSize";
 import { sitemapItems } from "@/constants";
+import { handleScrollToView } from "@/utils/handleScrollToView";
 
 const containerVariant = {
   hidden: { opacity: 0, height: 0 },
@@ -75,19 +76,19 @@ export default function Hero() {
         <div className="select-none">VPS</div>
 
         {isLg ? (
-          <div className="flex justify-center gap-x-8">
+          <ul className="flex justify-center gap-x-8">
             {sitemapItems
               .filter((item) => item.label !== "Overview")
               .map((item, index) => (
-                <a
+                <li
                   key={index}
-                  href={`#${item.id}`}
-                  className="text-xs text-[#000c] hover:text-black duration-300"
+                  onClick={() => handleScrollToView(item.id)}
+                  className="text-xs text-[#000c] hover:text-black duration-300 cursor-pointer"
                 >
                   {item.label}
-                </a>
+                </li>
               ))}
-          </div>
+          </ul>
         ) : (
           <>
             <button
@@ -108,7 +109,7 @@ export default function Hero() {
 
             <AnimatePresence mode="wait">
               {menuOpen && (
-                <motion.div
+                <motion.ul
                   variants={containerVariant}
                   initial="hidden"
                   animate="show"
@@ -116,17 +117,19 @@ export default function Hero() {
                   className="fixed inset-0 px-7 md:px-10 py-20 md:py-32 bg-white flex flex-col gap-y-4 md:gap-y-6 z-[90]"
                 >
                   {sitemapItems.map((item, index) => (
-                    <motion.a
-                      onClick={() => setMenuOpen(false)}
+                    <motion.li
+                      onClick={() => {
+                        setMenuOpen(false);
+                        handleScrollToView(item.id);
+                      }}
                       variants={listVariant}
                       key={index}
-                      href={`#${item.id}`}
-                      className="text-3xl md:text-5xl text-[#333336] hover:text-black font-bold"
+                      className="text-3xl md:text-5xl text-[#333336] hover:text-black font-bold cursor-pointer"
                     >
                       {item.label}
-                    </motion.a>
+                    </motion.li>
                   ))}
-                </motion.div>
+                </motion.ul>
               )}
             </AnimatePresence>
           </>

@@ -1,6 +1,7 @@
 "use client";
 
 import { sitemapItems, socials } from "@/constants";
+import { handleScrollToView } from "@/utils/handleScrollToView";
 import { motion, easeOut } from "motion/react";
 
 const containerVariant = {
@@ -59,14 +60,14 @@ export default function Footer() {
             className="flex flex-col"
           >
             {sitemapItems.map((item, index) => (
-              <motion.a
+              <motion.li
                 variants={listVariant}
                 key={index}
-                href={`#${item.id}`}
-                className="text-xl lg:text-[28px] text-[#333336] hover:text-black font-bold"
+                onClick={() => handleScrollToView(item.id)}
+                className="text-xl lg:text-[28px] text-[#333336] hover:text-black font-bold cursor-pointer"
               >
                 {item.label}
-              </motion.a>
+              </motion.li>
             ))}
           </motion.ul>
         </div>
