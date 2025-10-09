@@ -1,5 +1,8 @@
 "use client";
 
+import { motion } from "motion/react";
+
+import Navbar from "@/components/InterviewPage/Navbar";
 import VideoCapture from "@/components/InterviewPage/VideoCapture";
 import InfoBox from "@/components/InterviewPage/InfoBox";
 import ControlPanel from "@/components/InterviewPage/ControlPanel";
@@ -7,14 +10,18 @@ import LogBox from "@/components/InterviewPage/LogBox";
 
 export default function Interview() {
   return (
-    <main className="min-h-screen bg-[#1d1d1f] text-white lg:h-screen flex gap-2 md:gap-4 lg:gap-5 p-2 md:p-3 lg:p-6">
-      <section className="w-full lg:w-[70%] flex flex-col flex-1 justify-between items-center gap-2 md:gap-3 lg:gap-5">
+    <main className="relative min-h-screen p-5 bg-[#1d1d1f] text-white flex space-x-5 ">
+      <Navbar />
+
+      {/* left section */}
+      <section className="hidden lg:flex lg:sticky lg:top-[60px] lg:h-[calc(100vh-80px)] w-[70%] flex-col justify-between items-center gap-5">
         <VideoCapture />
-        <InfoBox />
+        {/* <ControlPanel /> */}
       </section>
 
-      <section className="w-full lg:w-[30%] flex flex-col justify-between items-center gap-2 md:gap-3 lg:gap-5">
-        <ControlPanel />
+      {/* right section */}
+      <section className="w-full h-full lg:w-[30%] mt-[39px] flex flex-col gap-5 max-h-[calc(100vh-49px)]">
+        <InfoBox />
         <LogBox />
       </section>
     </main>

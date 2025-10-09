@@ -10,7 +10,7 @@ import UseCase from "@/components/HomePage/UseCase";
 import Transparency from "@/components/HomePage/Transparency";
 import StartInterview from "@/components/HomePage/StartInterview";
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/HomePage/Navbar";
 
 export default function Home() {
   const [showNavbar, setShowNavbar] = useState(false);

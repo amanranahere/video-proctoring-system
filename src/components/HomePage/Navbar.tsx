@@ -118,7 +118,7 @@ export default function Navbar() {
                 ref={(el) => {
                   linkRefs.current[item.id] = el;
                 }}
-                className="text-xs text-[#000c] hover:text-black duration-300 cursor-pointer"
+                className="text-xs text-[#000c] hover:text-black duration-300 cursor-pointer text-center"
               >
                 {item.label}
               </li>
