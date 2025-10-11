@@ -299,9 +299,9 @@ export default function VideoCapture() {
   }, []);
 
   return (
-    <div className="relative w-full aspect-video rounded-[25px] flex items-center justify-center text-white overflow-hidden">
+    <div className="relative w-full aspect-video rounded-3xl flex items-center justify-center text-white overflow-hidden">
       {error ? (
-        <div className="h-full w-full flex flex-col justify-center items-center gap-5 bg-black text-white">
+        <div className="h-full w-full flex flex-col justify-center items-center gap-5 bg-[#1d1d1f] text-white">
           <div className="bg-[#3a3a3a] p-3 lg:p-5 rounded-full">
             <VideoOff className="w-6 h-6 lg:w-14 lg:h-14" />
           </div>

@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion, easeInOut } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useWindowSize } from "@/utils/useWindowSize";
-import useInterviewStore from "@/store/InterviewStore";
 import RulesModal from "./RulesModal";
 
 export default function Navbar() {
@@ -17,8 +16,6 @@ export default function Navbar() {
 
   const { width } = useWindowSize();
   const isMd = width >= 768;
-
-  const { interviewData } = useInterviewStore();
 
   return (
     <>
@@ -34,14 +31,10 @@ export default function Navbar() {
         }}
         className="fixed inset-x-0 top-0 z-[99]"
       >
-        <div className="fixed inset-x-0 top-0 max-h-max flex justify-between items-center px-4 lg:px-10 bg-[#161617cc] backdrop-blur-xs overflow-hidden z-[99]">
+        <div className="fixed inset-x-0 top-0 max-h-max flex justify-between items-center px-4 lg:px-10 bg-black/50 backdrop-blur-sm overflow-hidden z-[99]">
           <div className="flex gap-x-4 py-2.5">
-            <div className="select-none text-[19px] font-semibold ">VPS</div>
-
-            <div className="w-[1px] py-2.5 bg-white"></div>
-
-            <div className="text-xl font-semibold line-clamp-1">
-              {interviewData?.title}
+            <div className="select-none text-[19px] font-semibold ">
+              Video Proctoring System
             </div>
           </div>
 
@@ -54,7 +47,7 @@ export default function Navbar() {
                 Rules
               </button>
 
-              <button className="bg-red-400 rounded-full px-3 py-1.5 cursor-pointer">
+              <button className="bg-red-400 hover:brightness-110 duration-300 rounded-full px-3 py-1.5 cursor-pointer">
                 End Interview
               </button>
             </div>

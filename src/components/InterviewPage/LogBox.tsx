@@ -68,7 +68,7 @@ export default function LogBox() {
   };
 
   return (
-    <div className="min-h-[90vh] w-full rounded-4xl bg-[#000] overflow-hidden overflow-y-auto">
+    <div className="min-h-[90vh] w-full rounded-4xl bg-[#1d1d1f] overflow-hidden overflow-y-auto">
       <div className="sticky top-0 bg-[#0d0d0d] flex justify-between items-center px-2 md:px-2.5 py-2.5">
         <h3 className="text-lg lg:text-xl font-bold">Logs</h3>
 

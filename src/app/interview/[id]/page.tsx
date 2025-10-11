@@ -10,17 +10,17 @@ import LogBox from "@/components/InterviewPage/LogBox";
 
 export default function Interview() {
   return (
-    <main className="relative min-h-screen p-5 bg-[#1d1d1f] text-white flex space-x-5 ">
+    <main className="relative p-5 bg-[#000] text-white flex flex-col lg:flex-row space-x-5 ">
       <Navbar />
 
       {/* left section */}
-      <section className="hidden lg:flex lg:sticky lg:top-[60px] lg:h-[calc(100vh-80px)] w-[70%] flex-col justify-between items-center gap-5">
+      <section className="flex lg:sticky lg:top-[60px] lg:h-[calc(100vh-80px)] w-full lg:w-[70%] mt-[56px] lg:mt-0 flex-col justify-between items-center gap-5">
         <VideoCapture />
-        {/* <ControlPanel /> */}
+        <ControlPanel />
       </section>
 
       {/* right section */}
-      <section className="w-full h-full lg:w-[30%] mt-[39px] flex flex-col gap-5 max-h-[calc(100vh-49px)]">
+      <section className="w-full lg:w-[30%] mt-[39px] flex flex-col gap-5">
         <InfoBox />
         <LogBox />
       </section>
