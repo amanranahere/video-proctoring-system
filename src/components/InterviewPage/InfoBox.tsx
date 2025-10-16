@@ -14,17 +14,17 @@ export default function InfoBox() {
     <motion.div
       layout
       transition={{ type: spring, stiffness: 150, damping: 18 }}
-      className="w-full h-full flex flex-col gap-y-4 md:gap-y-2"
+      className="w-full h-full flex flex-col gap-y-1 md:gap-y-2"
     >
-      <div className="col-span-2 flex flex-col bg-[#2a2a2db8] px-6 py-5 rounded-3xl">
+      <div className="flex flex-col bg-[#2a2a2db8] px-5 py-4 md:px-6 md:py-5 rounded-3xl">
         <span className="text-[#86868b] font-semibold text-sm">Title</span>
         <h2 className="text-lg lg:text-2xl font-semibold">
           {interviewData?.title}
         </h2>
       </div>
 
-      <div className="grid grid-cols-5 gap-x-2">
-        <div className="col-span-3 flex flex-col bg-[#2a2a2db8] px-6 py-5 rounded-3xl">
+      <div className="grid grid-cols-5 gap-x-1 md:gap-x-2">
+        <div className="col-span-3 flex flex-col bg-[#2a2a2db8] px-5 py-4 md:px-6 md:py-5 rounded-3xl">
           <span className="text-[#86868b] font-semibold text-sm">
             Candidate Name
           </span>
@@ -33,7 +33,7 @@ export default function InfoBox() {
           </h2>
         </div>
 
-        <div className="col-span-2 flex flex-col bg-[#2a2a2db8] px-6 py-5 rounded-3xl">
+        <div className="col-span-2 flex flex-col bg-[#2a2a2db8] px-5 py-4 md:px-6 md:py-5 rounded-3xl">
           <span className="text-[#86868b] font-semibold text-sm">Duration</span>
           <h2 className="text-lg lg:text-2xl font-semibold">
             {interviewData?.duration} mins
@@ -44,7 +44,7 @@ export default function InfoBox() {
       <div
         key={contextBoxOpen ? "open" : "closed"}
         onClick={toggleContextBox}
-        className="flex flex-col bg-[#2a2a2db8] hover:bg-[#2a2a2deb] duration-300 p-6 rounded-4xl cursor-pointer select-none"
+        className="flex flex-col bg-[#2a2a2db8] hover:bg-[#2a2a2deb] duration-300 p-5 md:p-6 rounded-4xl cursor-pointer select-none"
       >
         <span className="text-[#86868b] font-semibold text-sm">Context</span>
         <AnimatePresence mode="wait">
@@ -56,7 +56,11 @@ export default function InfoBox() {
               transition={{ duration: 0.4, ease: "easeInOut", delay: 0.2 }}
               className={`text-lg lg:text-2xl font-semibold line-clamp-none`}
             >
-              {interviewData?.notes || "No context provided."}
+              {interviewData?.notes || (
+                <span className="text-base text-gray-500">
+                  No context provided.
+                </span>
+              )}
             </motion.p>
           ) : (
             <motion.p

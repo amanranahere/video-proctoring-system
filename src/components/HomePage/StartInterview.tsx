@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { motion } from "motion/react";
 import { useInterviewStore } from "@/store/InterviewStore";
 import { v4 as uuidv4 } from "uuid";
+import { useLogStore } from "@/store/logStore";
+import getTimeStamp from "@/utils/getTimeStamp";
 
 type FormValues = {
   id: string;
@@ -25,6 +27,8 @@ export default function StartInterview() {
     formState: { errors },
   } = useForm<FormValues>();
 
+  const { addLog } = useLogStore();
+
   const onSubmit = (data: FormValues) => {
     const id = uuidv4();
 
@@ -36,6 +40,8 @@ export default function StartInterview() {
       duration: data.duration,
       notes: data.notes,
     });
+
+    addLog({ rule: "Interview started", time: getTimeStamp() });
 
     router.push(`/interview/${id}`);
   };

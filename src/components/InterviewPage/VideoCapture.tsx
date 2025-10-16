@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { VideoOff } from "lucide-react";
 import { useLogStore } from "@/store/logStore";
+import getTimeStamp from "@/utils/getTimeStamp";
 
 import * as tf from "@tensorflow/tfjs";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
@@ -13,11 +14,6 @@ declare global {
   interface Window {
     FaceMesh: any;
   }
-}
-
-function getTimeStamp(): string {
-  const now = new Date();
-  return now.toLocaleTimeString();
 }
 
 export default function VideoCapture() {
@@ -38,6 +34,7 @@ export default function VideoCapture() {
   const [error, setError] = useState<string | null>(null);
 
   const addLog = useLogStore((state) => state.addLog);
+  const { isRecording } = useLogStore();
 
   useEffect(() => {
     if (!videoRef.current || !canvasRef.current) return;
@@ -158,7 +155,8 @@ export default function VideoCapture() {
           multiFaceWarningIssuedRef.current = false;
         }
 
-        // draw landmarks
+        // draw landmarks (green mesh on face)
+
         // if (faces.length > 0) {
         //   // console.log("Faces detected: ", faces.length);
         //   canvasCtx.fillStyle = "lime";
@@ -303,12 +301,23 @@ export default function VideoCapture() {
       {error ? (
         <div className="h-full w-full flex flex-col justify-center items-center gap-5 bg-[#1d1d1f] text-white">
           <div className="bg-[#3a3a3a] p-3 lg:p-5 rounded-full">
-            <VideoOff className="w-6 h-6 lg:w-14 lg:h-14" />
+            <VideoOff className="w-9 h-9 lg:w-14 lg:h-14" />
           </div>
-          <span className="font-medium text-[#bababa]">{error}</span>
+          <span className="px-10 text-xs lg:text-sm text-center font-medium text-[#bababa]">
+            {error}
+          </span>
         </div>
       ) : (
         <>
+          {isRecording && (
+            <div className="absolute top-4 left-4 z-50 flex justify-center items-center gap-x-2">
+              <div className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
+              <span className="text-red-500 font-semibold tracking-wide font-mono">
+                REC
+              </span>
+            </div>
+          )}
+
           <video ref={videoRef} className="hidden" autoPlay playsInline muted />
 
           <canvas

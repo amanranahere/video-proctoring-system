@@ -18,7 +18,7 @@ export default function InterviewTimer() {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          // end interview
+          // call end interview function here
           return 0;
         }
         return prev - 1;
@@ -40,5 +40,9 @@ export default function InterviewTimer() {
     ].join(":");
   };
 
-  return <span className="text-4xl pl-4">{formatTime(timeLeft)}</span>;
+  return (
+    <span className="text-2xl md:text-3xl lg:text-4xl pl-2 md:pl-4 font-semibold">
+      {formatTime(timeLeft)}
+    </span>
+  );
 }

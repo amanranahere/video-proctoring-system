@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type Log = {
   rule: string;
-  deduction: number;
+  deduction?: number;
   time: string;
 };
 
@@ -32,7 +32,7 @@ export const useLogStore = create<LogState>((set) => ({
   addLog: (log) =>
     set((state) => ({
       logs: [...state.logs, log],
-      points: Math.max(0, state.points + log.deduction),
+      points: Math.max(0, state.points + (log.deduction ?? 0)),
     })),
   clearLogs: () => set({ logs: [], points: 100 }),
 
