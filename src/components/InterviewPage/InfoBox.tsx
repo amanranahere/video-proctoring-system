@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence, spring } from "motion/react";
-import useInterviewStore from "@/store/InterviewStore";
+import { useInterviewStore } from "@/store/InterviewStore";
 
 export default function InfoBox() {
   const [contextBoxOpen, setContextBoxOpen] = useState(false);
@@ -56,7 +56,7 @@ export default function InfoBox() {
               transition={{ duration: 0.4, ease: "easeInOut", delay: 0.2 }}
               className={`text-lg lg:text-2xl font-semibold line-clamp-none`}
             >
-              {interviewData?.notes} {interviewData?.notes}
+              {interviewData?.notes || "No context provided."}
             </motion.p>
           ) : (
             <motion.p
@@ -67,7 +67,11 @@ export default function InfoBox() {
               className={`text-lg lg:text-2xl font-semibold line-clamp-3
             `}
             >
-              {interviewData?.notes}
+              {interviewData?.notes || (
+                <span className="text-base text-gray-500">
+                  No context provided.
+                </span>
+              )}
             </motion.p>
           )}
         </AnimatePresence>

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { motion } from "motion/react";
-import useInterviewStore from "@/store/InterviewStore";
+import { useInterviewStore } from "@/store/InterviewStore";
 import { v4 as uuidv4 } from "uuid";
 
 type FormValues = {

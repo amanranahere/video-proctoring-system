@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useLogStore } from "@/store/logStore";
 import { AnimatePresence, motion } from "motion/react";
+import InterviewTimer from "@/utils/interviewTimer";
 
 export default function ControlPanel() {
   const [snapshotTaken, setSnapshotTaken] = useState(false);
@@ -70,126 +71,136 @@ export default function ControlPanel() {
   };
 
   return (
-    <div className="flex flex-wrap gap-2">
-      {/* start/end recording btn */}
-      <button
-        onClick={() => {
-          const video = document.querySelector("video") as HTMLVideoElement;
-          if (video && video.srcObject) {
-            startRecording(video.srcObject as MediaStream);
-          }
-        }}
-        className="py-2.5 pl-6 pr-2.5 text-lg font-semibold bg-[#424245b3] hover:brightness-110 duration-300 rounded-full flex justify-between items-center gap-x-4 cursor-pointer"
-      >
-        <AnimatePresence mode="wait">
+    <div className="w-full flex justify-between items-center">
+      {/* timer */}
+      <InterviewTimer />
+
+      {/* buttons */}
+      <div className="flex flex-wrap gap-2">
+        {/* start/end recording btn */}
+        <button
+          onClick={() => {
+            if (isRecording) {
+              stopRecording();
+            } else {
+              const video = document.querySelector("video") as HTMLVideoElement;
+              if (video && video.srcObject) {
+                startRecording(video.srcObject as MediaStream);
+              }
+            }
+          }}
+          className="py-2.5 pl-6 pr-2.5 text-lg font-semibold bg-[#424245b3] hover:brightness-110 duration-300 rounded-full flex justify-between items-center gap-x-4 cursor-pointer"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={isRecording ? "end" : "start"}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+            >
+              {isRecording ? "End Recording" : "Start Recording"}
+            </motion.div>
+          </AnimatePresence>
+
           <motion.div
-            key={isRecording ? "end" : "start"}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            animate={{ backgroundColor: isRecording ? "#ef4444" : "#5CFF5C" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="relative w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
           >
-            {isRecording ? "End Recording" : "Start Recording"}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isRecording ? "square" : "clapperboard"}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="absolute inset-0 flex justify-center items-center"
+              >
+                {isRecording ? (
+                  <Square size={18} strokeWidth={3} />
+                ) : (
+                  <Clapperboard size={20} strokeWidth={2.5} />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
-        </AnimatePresence>
+        </button>
 
-        <motion.div
-          animate={{ backgroundColor: isRecording ? "#ef4444" : "#5CFF5C" }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="relative w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
+        {/* resume/pause recording btn */}
+        <button
+          onClick={() => {
+            isPaused ? resumeRecording() : pauseRecording();
+          }}
+          className="py-2.5 pl-6 pr-2.5 text-lg font-semibold bg-[#424245b3] hover:brightness-110 duration-300 rounded-full flex justify-between items-center gap-x-4 cursor-pointer"
         >
           <AnimatePresence mode="wait">
             <motion.div
-              key={isRecording ? "square" : "clapperboard"}
+              key={isPaused ? "resume" : "pause"}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="absolute inset-0 flex justify-center items-center"
             >
-              {isRecording ? (
-                <Square size={18} strokeWidth={3} />
-              ) : (
-                <Clapperboard size={20} strokeWidth={2.5} />
-              )}
+              {isPaused ? "Resume Recording" : "Pause Recording"}
             </motion.div>
           </AnimatePresence>
-        </motion.div>
-      </button>
 
-      {/* resume/pause recording btn */}
-      <button
-        onClick={() => {
-          isPaused ? resumeRecording() : pauseRecording();
-        }}
-        className="py-2.5 pl-6 pr-2.5 text-lg font-semibold bg-[#424245b3] hover:brightness-110 duration-300 rounded-full flex justify-between items-center gap-x-4 cursor-pointer"
-      >
-        <AnimatePresence mode="wait">
           <motion.div
-            key={isPaused ? "resume" : "pause"}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            animate={{ backgroundColor: isPaused ? "#000" : "#000" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="relative w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
           >
-            {isPaused ? "Resume Recording" : "Pause Recording"}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isPaused ? "play" : "pause"}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="absolute inset-0 flex justify-center items-center"
+              >
+                {isPaused ? (
+                  <Play size={18} strokeWidth={3} />
+                ) : (
+                  <Pause size={20} strokeWidth={2.5} />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
-        </AnimatePresence>
+        </button>
 
-        <motion.div
-          animate={{ backgroundColor: isPaused ? "#000" : "#000" }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="relative w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
+        {/* screenshot btn */}
+        <button
+          onClick={handleScreenshot}
+          className="py-2.5 pl-6 pr-2.5 text-lg font-semibold bg-[#424245b3] hover:brightness-110 duration-300 rounded-full flex justify-between items-center gap-x-4 cursor-pointer"
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={isPaused ? "play" : "pause"}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="absolute inset-0 flex justify-center items-center"
-            >
-              {isPaused ? (
-                <Play size={18} strokeWidth={3} />
-              ) : (
-                <Pause size={20} strokeWidth={2.5} />
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-      </button>
+          <span>Take Snapshot</span>
 
-      {/* screenshot btn */}
-      <button
-        onClick={handleScreenshot}
-        className="py-2.5 pl-6 pr-2.5 text-lg font-semibold bg-[#424245b3] hover:brightness-110 duration-300 rounded-full flex justify-between items-center gap-x-4 cursor-pointer"
-      >
-        <span>Take Snapshot</span>
-
-        <motion.div
-          animate={{ backgroundColor: snapshotTaken ? "#5CFF5C" : "#000" }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="relative w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={snapshotTaken ? "play" : "pause"}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="absolute inset-0 flex justify-center items-center"
-            >
-              {snapshotTaken ? (
-                <Check size={18} strokeWidth={3} />
-              ) : (
-                <Camera size={20} strokeWidth={2.5} />
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
-      </button>
+          <motion.div
+            animate={{ backgroundColor: snapshotTaken ? "#5CFF5C" : "#000" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="relative w-9 h-9 rounded-full flex items-center justify-center overflow-hidden"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={snapshotTaken ? "play" : "pause"}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="absolute inset-0 flex justify-center items-center"
+              >
+                {snapshotTaken ? (
+                  <Check size={18} strokeWidth={3} />
+                ) : (
+                  <Camera size={20} strokeWidth={2.5} />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        </button>
+      </div>
     </div>
   );
 }

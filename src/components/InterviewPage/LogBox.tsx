@@ -26,7 +26,6 @@ const rules = [
 
 export default function LogBox() {
   const [copied, setCopied] = useState(false);
-  const [RuleBoxOpen, setRuleBoxOpen] = useState(false);
   const logEndRef = useRef<HTMLDivElement>(null);
 
   const logs = useLogStore((state) => state.logs);
@@ -49,6 +48,7 @@ export default function LogBox() {
     else if (rule.includes("Extra")) icon = <Laptop className="w-4 h-4" />;
 
     let color = "text-gray-300";
+    if (deduction <= -3 && deduction >= -5) color = "text-blue-400";
     if (deduction <= -6 && deduction >= -8) color = "text-yellow-400";
     if (deduction <= -9) color = "text-red-400";
 
@@ -68,27 +68,21 @@ export default function LogBox() {
   };
 
   return (
-    <div className="min-h-[90vh] w-full rounded-4xl bg-[#1d1d1f] overflow-hidden overflow-y-auto">
-      <div className="sticky top-0 bg-[#0d0d0d] flex justify-between items-center px-2 md:px-2.5 py-2.5">
-        <h3 className="text-lg lg:text-xl font-bold">Logs</h3>
+    <div className="min-h-[90vh] w-full rounded-4xl bg-[#2a2a2db8] overflow-hidden overflow-y-auto no-scrollbar">
+      {/* header */}
+      <div className="sticky top-0 flex justify-between items-center px-2 md:px-2.5 py-4  backdrop-blur-sm">
+        <h3 className="pl-3 text-lg lg:text-2xl font-bold">Logs</h3>
 
-        <div className="flex gap-x-2">
-          <div className="px-2 py-1 hover:bg-[#1a1a1a] border-2 border-[#d6ebfd30] text-sm rounded-lg duration-150">
-            Points: <span className="font-semibold">{points}</span>
+        <div className="flex gap-x-1.5">
+          <div className="h-8 px-4 bg-[#424245b3] text-sm rounded-full duration-150 flex justify-center items-center">
+            <span className="text-[#bababa] font-semibold">Points:</span>&nbsp;
+            {points}
           </div>
-
-          <button
-            onClick={() => setRuleBoxOpen(!RuleBoxOpen)}
-            title="Points deduction rules"
-            className="p-1.5 hover:bg-[#1a1a1a] hover:brightness-110 border-2 border-[#d6ebfd30] font-bold rounded-lg flex items-center gap-x-2 duration-150 cursor-pointer"
-          >
-            <Info strokeWidth={3} className="w-3 h-3 lg:w-4 lg:h-4" />
-          </button>
 
           <button
             onClick={handleCopy}
             title="Copy logs"
-            className="p-1.5 hover:bg-[#1a1a1a] hover:brightness-110 border-2 border-[#d6ebfd30] font-bold rounded-lg flex items-center gap-x-2 duration-150 cursor-pointer"
+            className="w-8 h-8 bg-[#424245b3] hover:brightness-110 font-bold rounded-full flex justify-center items-center gap-x-2 duration-150 cursor-pointer"
           >
             {copied ? (
               <>
@@ -107,7 +101,7 @@ export default function LogBox() {
           <button
             onClick={clearLogs}
             title="Clear logs"
-            className="p-1.5 hover:bg-[#1a1a1a] hover:brightness-110 border-2 border-[#d6ebfd30] font-bold rounded-lg flex items-center gap-x-2 duration-150 cursor-pointer"
+            className="w-8 h-8 bg-[#424245b3] hover:brightness-110 font-bold rounded-full flex justify-center items-center gap-x-2 duration-150 cursor-pointer"
           >
             <Trash className="w-3 h-3 lg:w-4 lg:h-4" />
           </button>
@@ -125,7 +119,7 @@ export default function LogBox() {
             return (
               <div
                 key={index}
-                className="flex items-center gap-2 bg-neutral-900 rounded px-2 py-1.5"
+                className="flex items-center gap-2 bg-neutral-900 rounded-full px-3 py-1.5"
               >
                 <span className="text-xs text-gray-500">{log.time}</span>
                 <span className={color}>{icon}</span>

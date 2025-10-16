@@ -17,7 +17,7 @@ interface InterviewStore {
   clearInterviewData: () => void;
 }
 
-const useInterviewStore = create<InterviewStore>()(
+export const useInterviewStore = create<InterviewStore>()(
   persist(
     (set) => ({
       interviewData: null,
@@ -39,5 +39,3 @@ const useInterviewStore = create<InterviewStore>()(
     }
   )
 );
-
-export default useInterviewStore;
