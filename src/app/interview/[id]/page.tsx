@@ -7,6 +7,7 @@ import VideoCapture from "@/components/InterviewPage/VideoCapture";
 import InfoBox from "@/components/InterviewPage/InfoBox";
 import ControlPanel from "@/components/InterviewPage/ControlPanel";
 import LogBox from "@/components/InterviewPage/LogBox";
+import EndInterviewModal from "@/components/InterviewPage/EndInterviewModal";
 
 export default function Interview() {
   return (
@@ -24,6 +25,9 @@ export default function Interview() {
         <InfoBox />
         <LogBox />
       </section>
+
+      {/* end interview modal */}
+      <EndInterviewModal />
     </main>
   );
 }

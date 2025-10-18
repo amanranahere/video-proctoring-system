@@ -6,7 +6,6 @@ import { motion } from "motion/react";
 import { useInterviewStore } from "@/store/InterviewStore";
 import { v4 as uuidv4 } from "uuid";
 import { useLogStore } from "@/store/logStore";
-import getTimeStamp from "@/utils/getTimeStamp";
 
 type FormValues = {
   id: string;
@@ -14,7 +13,7 @@ type FormValues = {
   candidateName: string;
   interviewerName: string;
   duration: number;
-  notes: string;
+  context: string;
 };
 
 export default function StartInterview() {
@@ -27,8 +26,6 @@ export default function StartInterview() {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const { addLog } = useLogStore();
-
   const onSubmit = (data: FormValues) => {
     const id = uuidv4();
 
@@ -38,10 +35,10 @@ export default function StartInterview() {
       candidateName: data.candidateName,
       interviewerName: data.interviewerName,
       duration: data.duration,
-      notes: data.notes,
+      context: data.context,
     });
 
-    addLog({ rule: "Interview started", time: getTimeStamp() });
+    useLogStore.getState().startInterview();
 
     router.push(`/interview/${id}`);
   };
@@ -138,7 +135,10 @@ export default function StartInterview() {
             <div className="floating-input">
               <input
                 type="number"
-                {...register("duration", { min: 10, max: 180 })}
+                {...register("duration", {
+                  min: 1,
+                  required: "Interview duration is required",
+                })}
                 placeholder=" "
                 className={`border-2 rounded-2xl focus:border-[#86868b] duration-300 outline-none ${
                   errors.duration ? "border-red-500" : "border-[#d1d5db]"
@@ -156,12 +156,12 @@ export default function StartInterview() {
           </div>
 
           <div className="flex flex-col gap-2">
-            {/* notes */}
+            {/* context */}
             <div className="h-full floating-textarea">
               <textarea
                 rows={6}
                 className="h-full resize-none custom-scrollbar rounded-2xl border-2 border-[#d1d5db] focus:border-[#86868b] duration-300 outline-none"
-                {...register("notes")}
+                {...register("context")}
                 placeholder=" "
               />
 

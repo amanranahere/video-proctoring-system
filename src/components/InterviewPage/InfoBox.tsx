@@ -56,7 +56,7 @@ export default function InfoBox() {
               transition={{ duration: 0.4, ease: "easeInOut", delay: 0.2 }}
               className={`text-lg lg:text-2xl font-semibold line-clamp-none`}
             >
-              {interviewData?.notes || (
+              {interviewData?.context || (
                 <span className="text-base text-gray-500">
                   No context provided.
                 </span>
@@ -71,7 +71,7 @@ export default function InfoBox() {
               className={`text-lg lg:text-2xl font-semibold line-clamp-3
             `}
             >
-              {interviewData?.notes || (
+              {interviewData?.context || (
                 <span className="text-base text-gray-500">
                   No context provided.
                 </span>

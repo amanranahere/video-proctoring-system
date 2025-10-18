@@ -1,15 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import {
-  Clapperboard,
-  Square,
-  Play,
-  Pause,
-  Camera,
-  Check,
-  Power,
-} from "lucide-react";
+import { Clapperboard, Square, Play, Pause, Camera, Check } from "lucide-react";
 import { useLogStore } from "@/store/logStore";
 import { AnimatePresence, motion } from "motion/react";
 import InterviewTimer from "@/utils/InterviewTimer";
@@ -220,75 +212,3 @@ export default function ControlPanel() {
     </div>
   );
 }
-
-// <div className="w-full flex flex-col gap-y-2 rounded-2xl">
-//   <div className="flex flex-col gap-3">
-//     <div className="flex gap-x-3">
-
-//       {!isRecording ? (
-//         <button
-//           onClick={() => {
-//             const video = document.querySelector(
-//               "video"
-//             ) as HTMLVideoElement;
-//             if (video && video.srcObject) {
-//               startRecording(video.srcObject as MediaStream);
-//             }
-//           }}
-//           className="relative w-full py-2 flex justify-center active:scale-95 items-center gap-x-2 outline-none cursor-pointer select-none rounded-xl text-white font-semibold bg-[#ffffff06] border border-white/10 shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_12px_hsla(0,0%,100%,0.05)] hover:shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_22px_hsla(0,0%,100%,0.15)] transition-all duration-300 ease-out"
-//         >
-//           <Clapperboard size={18} strokeWidth={2.5} />
-//           <span>Start Recording</span>
-//           <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-green-400"></span>
-//         </button>
-//       ) : (
-//         <button
-//           onClick={stopRecording}
-//           className="relative w-full py-2 flex justify-center active:scale-95 items-center gap-x-2 outline-none cursor-pointer select-none rounded-xl text-white font-semibold bg-[#ffffff06] border border-white/10 shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_12px_hsla(0,0%,100%,0.05)] hover:shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_22px_hsla(0,0%,100%,0.15)] transition-all duration-300 ease-out"
-//         >
-//           <Square size={18} strokeWidth={3} />
-//           <span>End Recording</span>
-//           <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
-//         </button>
-//       )}
-
-//       {isRecording ? (
-//         !isPaused ? (
-//           <button
-//             onClick={pauseRecording}
-//             className="relative w-full py-2 flex justify-center items-center gap-x-2 active:scale-95 outline-none select-none rounded-xl text-white font-semibold bg-[#ffffff06] border border-white/10 shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_12px_hsla(0,0%,100%,0.05)] hover:shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_22px_hsla(0,0%,100%,0.15)] transition-all duration-300 ease-out cursor-pointer"
-//           >
-//             <Pause size={18} strokeWidth={3} />
-//             <span>Pause</span>
-//           </button>
-//         ) : (
-//           <button
-//             onClick={resumeRecording}
-//             className="relative w-full py-2 flex justify-center items-center gap-x-2 active:scale-95 outline-none select-none rounded-xl text-white font-semibold bg-[#ffffff06] border border-white/10 shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_12px_hsla(0,0%,100%,0.05)] hover:shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_22px_hsla(0,0%,100%,0.15)] transition-all duration-300 ease-out cursor-pointer"
-//           >
-//             <Play size={18} strokeWidth={3} />
-//             <span>Resume</span>
-//           </button>
-//         )
-//       ) : null}
-//     </div>
-
-//     <div className="flex gap-x-3">
-//       <button
-//         onClick={handleScreenshot}
-//         className="relative w-full py-2 flex justify-center items-center gap-x-2 active:scale-95 outline-none cursor-pointer select-none rounded-xl text-white font-semibold bg-[#ffffff06] border border-white/10 shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_12px_hsla(0,0%,100%,0.05)] hover:shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_22px_hsla(0,0%,100%,0.15)] transition-all duration-300 ease-out"
-//       >
-//         <Camera size={18} strokeWidth={3} />
-//         Take Snapshot
-//       </button>
-
-//       <button
-//         onClick={handleEndInterview}
-//         className="relative w-full py-2 flex justify-center items-center gap-x-2 active:scale-95 outline-none cursor-pointer select-none rounded-xl text-white font-semibold bg-[#ffffff06] hover:bg-red-400 border border-white/10 shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_12px_hsla(0,0%,100%,0.05)] hover:shadow-[inset_0_0_0_1px_hsla(0,0%,100%,0.075),inset_0_0_22px_hsla(0,0%,100%,0.15)] transition-all duration-300 ease-out"
-//       >
-//         <Power size={18} strokeWidth={3} />
-//         End Interview
-//       </button>
-//     </div>
-//   </div>
-// </div>

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import getTimeStamp from "@/utils/getTimeStamp";
 
 type Log = {
   rule: string;
@@ -20,12 +21,26 @@ type LogState = {
   pauseRecording: () => void;
   resumeRecording: () => void;
   takeScreenshot: (video: HTMLVideoElement) => void;
+
+  // store media
+  recordings: string[];
+  snapshots: string[];
+  addRecording: (url: string) => void;
+  addSnapshot: (url: string) => void;
+  clearMedia: () => void;
+
+  // interview controls
+  isInterviewActive: boolean;
+  showEndModal: boolean;
+  startInterview: () => void;
+  endInterview: () => void;
+  closeModal: () => void;
 };
 
 let mediaRecorder: MediaRecorder | null = null;
 let recordedChunks: Blob[] = [];
 
-export const useLogStore = create<LogState>((set) => ({
+export const useLogStore = create<LogState>((set, get) => ({
   logs: [],
   points: 100,
 
@@ -34,9 +49,26 @@ export const useLogStore = create<LogState>((set) => ({
       logs: [...state.logs, log],
       points: Math.max(0, state.points + (log.deduction ?? 0)),
     })),
+
   clearLogs: () => set({ logs: [], points: 100 }),
 
-  // recording
+  // media arrays
+  recordings: [],
+  snapshots: [],
+
+  addRecording: (url) =>
+    set((state) => ({
+      recordings: [...state.recordings, url],
+    })),
+
+  addSnapshot: (url) =>
+    set((state) => ({
+      snapshots: [...state.snapshots, url],
+    })),
+
+  clearMedia: () => set({ recordings: [], snapshots: [] }),
+
+  // recording controls
   isRecording: false,
   isPaused: false,
 
@@ -51,11 +83,7 @@ export const useLogStore = create<LogState>((set) => ({
     mediaRecorder.onstop = () => {
       const blob = new Blob(recordedChunks, { type: "video/webm" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `interview-${Date.now()}.webm`;
-      a.click();
-      URL.revokeObjectURL(url);
+      useLogStore.getState().addRecording(url);
     };
 
     mediaRecorder.start();
@@ -87,12 +115,30 @@ export const useLogStore = create<LogState>((set) => ({
       canvas.toBlob((blob) => {
         if (!blob) return;
         const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `screenshot-${Date.now()}.png`;
-        a.click();
-        URL.revokeObjectURL(url);
+        useLogStore.getState().addSnapshot(url);
       });
     }
   },
+
+  // interview controls
+  isInterviewActive: false,
+  showEndModal: false,
+
+  startInterview: () => {
+    set({ isInterviewActive: true });
+    get().addLog({ rule: "Interview started", time: getTimeStamp() });
+  },
+
+  endInterview: () => {
+    if (get().isRecording) get().stopRecording();
+
+    set({
+      isInterviewActive: false,
+      showEndModal: true,
+    });
+
+    get().addLog({ rule: "Interview ended", time: getTimeStamp() });
+  },
+
+  closeModal: () => set({ showEndModal: false }),
 }));

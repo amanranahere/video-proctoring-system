@@ -7,7 +7,7 @@ interface InterviewData {
   candidateName: string;
   interviewerName: string;
   duration: number;
-  notes: string;
+  context: string;
 }
 
 interface InterviewStore {
