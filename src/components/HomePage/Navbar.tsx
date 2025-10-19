@@ -6,6 +6,7 @@ import { AnimatePresence, motion, easeInOut } from "motion/react";
 import { useWindowSize } from "@/utils/useWindowSize";
 import { sitemapItems } from "@/constants";
 import { handleScrollToView } from "@/utils/handleScrollToView";
+import { useLogStore } from "@/store/logStore";
 
 const containerVariant = {
   hidden: {},
@@ -51,6 +52,8 @@ export default function Navbar() {
 
   const { width } = useWindowSize();
   const isLg = width >= 1024;
+
+  const { endInterview } = useLogStore();
 
   useEffect(() => {
     const sectionIds = [

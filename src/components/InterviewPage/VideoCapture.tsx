@@ -34,7 +34,7 @@ export default function VideoCapture() {
   const [error, setError] = useState<string | null>(null);
 
   const addLog = useLogStore((state) => state.addLog);
-  const { isRecording } = useLogStore();
+  const { isRecording, stopDetection } = useLogStore();
 
   useEffect(() => {
     if (!videoRef.current || !canvasRef.current) return;
@@ -217,9 +217,23 @@ export default function VideoCapture() {
             videoRef.current?.play();
 
             const processFrame = async () => {
+              if (stopDetection) return;
+
               if (videoRef.current && faceMesh) {
                 // run face detection
-                await faceMesh.send({ image: videoRef.current });
+                try {
+                  await faceMesh.send({ image: videoRef.current });
+                } catch (err: any) {
+                  if (
+                    err?.message?.includes("abort") ||
+                    String(err).includes("abort")
+                  ) {
+                    console.warn("FaceMesh stopped safely (ignored safely).");
+                  } else {
+                    console.error(err);
+                  }
+                  return;
+                }
 
                 // run object detection
                 if (objectModelRef.current) {
@@ -310,15 +324,22 @@ export default function VideoCapture() {
       ) : (
         <>
           {isRecording && (
-            <div className="absolute top-4 left-4 z-50 flex justify-center items-center gap-x-2">
+            <div className="absolute top-4 right-4 z-50 flex justify-center items-center gap-x-2">
               <div className="w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
-              <span className="text-red-500 font-semibold tracking-wide font-mono">
+              <span className="text-red-500 font-semibold tracking-wide font-mono text-sm">
                 REC
               </span>
             </div>
           )}
 
-          <video ref={videoRef} className="hidden" autoPlay playsInline muted />
+          <video
+            id="interview-video"
+            ref={videoRef}
+            className="hidden"
+            autoPlay
+            playsInline
+            muted
+          />
 
           <canvas
             ref={canvasRef}

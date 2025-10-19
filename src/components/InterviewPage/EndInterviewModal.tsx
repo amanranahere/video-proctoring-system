@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { useLogStore } from "@/store/logStore";
 import { useInterviewStore } from "@/store/InterviewStore";
@@ -9,8 +9,15 @@ import { Download } from "lucide-react";
 export default function EndInterviewModal() {
   const router = useRouter();
 
-  const { showEndModal, closeModal, logs, recordings, snapshots } =
-    useLogStore();
+  const {
+    showEndModal,
+    closeModal,
+    logs,
+    recordings,
+    snapshots,
+    clearLogs,
+    clearMedia,
+  } = useLogStore();
 
   const { interviewData, clearInterviewData } = useInterviewStore();
 
@@ -39,51 +46,57 @@ export default function EndInterviewModal() {
 
   return (
     <AnimatePresence mode="wait">
-      {!showEndModal && (
+      {showEndModal && (
         <div className="fixed inset-0 w-full h-full flex justify-center items-center z-[99] text-[#1d1d1f]">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="relative w-[90%] md:w-[70%] lg:w-[60%] h-[80%] lg:h-[90%] px-6 lg:px-14 pt-16 lg:pt-20 pb-8 lg:pb-20 bg-white rounded-4xl flex flex-col gap-y-6 z-30 overflow-y-auto no-scrollbar"
+            className="relative w-[90%] md:w-[70%] lg:w-[60%] h-[80%] lg:h-[90%] px-6 lg:px-14 pt-16 lg:pt-20 pb-8 lg:pb-20 bg-white rounded-4xl flex flex-col items-center gap-y-6 z-30 overflow-y-auto no-scrollbar"
           >
             <h3 className="text-4xl lg:text-[56px] font-bold lg:leading-14 text-center">
               Interview Summary
             </h3>
 
-            <div className="lg:text-lg space-y-8 leading-snug lg:leading-normal">
-              <p className="flex flex-col font-bold px-2 lg:px-6">
+            <div className="max-w-max px-6 p-2 font-semibold text-[#1d1d1fd2] bg-[#f5f5f7] rounded-full">
+              ID: {interviewData?.id}
+            </div>
+
+            <div className="lg:text-lg mt-8 leading-snug lg:leading-normal">
+              <p className="flex flex-col font-bold px-2 lg:px-6 border-b border-[#e5e5e5] pb-8">
                 <span className="text-lg text-[#86868b]">Interview Title</span>
                 <span className="text-2xl text-[#1d1d1f]">
                   {interviewData?.title}
                 </span>
               </p>
-              <p className="flex flex-col font-bold px-2 lg:px-6">
-                <span className="text-lg text-[#86868b]">Interview Id</span>
-                <span className="text-2xl text-[#1d1d1f]">
-                  {interviewData?.id}
-                </span>
-              </p>
-              <p className="flex flex-col font-bold px-2 lg:px-6">
-                <span className="text-lg text-[#86868b]">Candidate Name</span>
-                <span className="text-2xl text-[#1d1d1f]">
-                  {interviewData?.candidateName}
-                </span>
-              </p>
-              <p className="flex flex-col font-bold px-2 lg:px-6">
-                <span className="text-lg text-[#86868b]">Interviwer Name</span>
-                <span className="text-2xl text-[#1d1d1f]">
-                  {interviewData?.interviewerName}
-                </span>
-              </p>
-              <p className="flex flex-col font-bold px-2 lg:px-6">
+
+              <div className="grid grid-cols-5 border-b border-[#e5e5e5] py-8">
+                <p className="col-span-3 flex flex-col font-bold px-2 lg:px-6">
+                  <span className="text-lg text-[#86868b]">Candidate Name</span>
+                  <span className="text-2xl text-[#1d1d1f]">
+                    {interviewData?.candidateName}
+                  </span>
+                </p>
+
+                <p className="col-span-2 flex flex-col font-bold px-2 lg:px-6">
+                  <span className="text-lg text-[#86868b]">
+                    Interviwer Name
+                  </span>
+                  <span className="text-2xl text-[#1d1d1f]">
+                    {interviewData?.interviewerName}
+                  </span>
+                </p>
+              </div>
+
+              <p className="flex flex-col font-bold px-2 lg:px-6 border-b border-[#e5e5e5] py-8">
                 <span className="text-lg text-[#86868b]">Duration</span>
                 <span className="text-2xl text-[#1d1d1f]">
                   {interviewData?.duration} mins
                 </span>
               </p>
-              <p className="flex flex-col font-bold px-2 lg:px-6">
+
+              <p className="flex flex-col font-bold px-2 lg:px-6 border-b border-[#e5e5e5] py-8">
                 <span className="text-lg text-[#86868b]">Context</span>
                 <span className="text-2xl text-[#1d1d1f]">
                   {interviewData?.context}
@@ -91,7 +104,7 @@ export default function EndInterviewModal() {
               </p>
 
               {/* logs */}
-              <div className="flex flex-col gap-y-2">
+              <div className="flex flex-col gap-y-2 mt-8 mb-10">
                 <span className="text-lg md:text-2xl text-[#86868b] font-bold px-2 lg:px-6">
                   Logs
                 </span>
@@ -121,7 +134,7 @@ export default function EndInterviewModal() {
               </div>
 
               {/* snapshots */}
-              <div className="flex flex-col gap-y-2">
+              <div className="flex flex-col gap-y-2 mb-10">
                 <span className="text-lg md:text-2xl text-[#86868b] font-bold px-2 lg:px-6">
                   Snapshots
                 </span>
@@ -161,7 +174,7 @@ export default function EndInterviewModal() {
               </div>
 
               {/* recordings */}
-              <div className="flex flex-col gap-y-2">
+              <div className="flex flex-col gap-y-2 mb-20">
                 <span className="text-lg md:text-2xl text-[#86868b] font-bold px-2 lg:px-6">
                   Recordings
                 </span>
@@ -196,18 +209,27 @@ export default function EndInterviewModal() {
                 </div>
               </div>
 
-              <button onClick={downloadReport} className="cursor-pointer">
-                Download Report
-              </button>
+              <div className="flex justify-center items-center gap-x-6">
+                <button
+                  onClick={downloadReport}
+                  className="px-8 py-3 text-base font-semibold bg-[#1d1d1f] text-white hover:bg-black rounded-full transition-all duration-200 cursor-pointer"
+                >
+                  Download Report
+                </button>
 
-              <button
-                onClick={() => {
-                  closeModal();
-                  //   router.push("/");
-                }}
-              >
-                Close
-              </button>
+                <button
+                  onClick={() => {
+                    closeModal();
+                    clearLogs();
+                    clearMedia();
+                    clearInterviewData();
+                    router.push("/");
+                  }}
+                  className="px-8 py-3 text-base font-semibold bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed] rounded-full transition-all duration-200 cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </motion.div>
 

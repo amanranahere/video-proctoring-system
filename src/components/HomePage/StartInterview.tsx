@@ -27,7 +27,7 @@ export default function StartInterview() {
   } = useForm<FormValues>();
 
   const onSubmit = (data: FormValues) => {
-    const id = uuidv4();
+    const id = uuidv4().split("-").slice(0, 3).join("-");
 
     setInterviewData({
       id,

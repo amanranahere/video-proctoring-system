@@ -35,6 +35,10 @@ type LogState = {
   startInterview: () => void;
   endInterview: () => void;
   closeModal: () => void;
+
+  // detection modals
+  stopDetection: boolean;
+  setStopDetection: (value: boolean) => void;
 };
 
 let mediaRecorder: MediaRecorder | null = null;
@@ -123,22 +127,38 @@ export const useLogStore = create<LogState>((set, get) => ({
   // interview controls
   isInterviewActive: false,
   showEndModal: false,
+  stopDetection: false,
+  setStopDetection: (value) => set({ stopDetection: value }),
 
   startInterview: () => {
     set({ isInterviewActive: true });
     get().addLog({ rule: "Interview started", time: getTimeStamp() });
   },
 
-  endInterview: () => {
-    if (get().isRecording) get().stopRecording();
+  endInterview: async () => {
+    const { isRecording, stopRecording, addLog, stopDetection } = get();
+
+    // stop recording
+    if (isRecording) stopRecording();
 
     set({
       isInterviewActive: false,
       showEndModal: true,
+      stopDetection: true,
     });
 
-    get().addLog({ rule: "Interview ended", time: getTimeStamp() });
+    // stop camera
+    const video = document.getElementById(
+      "interview-video"
+    ) as HTMLVideoElement | null;
+    if (video && video.srcObject) {
+      const stream = video.srcObject as MediaStream;
+      stream.getTracks().forEach((track) => track.stop());
+      video.srcObject = null;
+    }
+
+    addLog({ rule: "Interview ended", time: getTimeStamp() });
   },
 
-  closeModal: () => set({ showEndModal: false }),
+  closeModal: () => set({ showEndModal: false, stopDetection: false }),
 }));

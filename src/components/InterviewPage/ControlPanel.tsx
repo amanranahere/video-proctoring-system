@@ -42,32 +42,6 @@ export default function ControlPanel() {
     }, 1000);
   };
 
-  const handleEndInterview = () => {
-    stopRecording();
-
-    addLog({ rule: "Interview ended", time: getTimeStamp() });
-
-    const logs = useLogStore.getState().logs;
-
-    const report = {
-      candidate: "Candidate Name",
-      title: "Interview Title",
-      duration: "00:45:00",
-      points: useLogStore.getState().points,
-      logs,
-    };
-
-    const blob = new Blob([JSON.stringify(report, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `interview-report-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
   return (
     <div className="w-full flex flex-col lg:flex-row justify-center lg:justify-between items-center lg:gap-x-2 gap-y-2">
       {/* timer */}

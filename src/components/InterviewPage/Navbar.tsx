@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useWindowSize } from "@/utils/useWindowSize";
 import RulesModal from "./RulesModal";
+import { useLogStore } from "@/store/logStore";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -47,7 +48,12 @@ export default function Navbar() {
                 Rules
               </button>
 
-              <button className="bg-red-400 hover:brightness-110 duration-300 rounded-full px-3 py-1.5 cursor-pointer">
+              <button
+                onClick={() => {
+                  useLogStore.getState().endInterview();
+                }}
+                className="bg-red-400 hover:brightness-110 duration-300 rounded-full px-3 py-1.5 cursor-pointer"
+              >
                 End Interview
               </button>
             </div>
@@ -82,6 +88,9 @@ export default function Navbar() {
               </motion.button>
 
               <motion.button
+                onClick={() => {
+                  useLogStore.getState().endInterview();
+                }}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
