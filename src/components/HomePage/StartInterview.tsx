@@ -23,8 +23,8 @@ export default function StartInterview() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>();
+    formState: { errors, isValid },
+  } = useForm<FormValues>({ mode: "onChange" });
 
   const onSubmit = (data: FormValues) => {
     const id = uuidv4().split("-").slice(0, 3).join("-");
@@ -56,13 +56,16 @@ export default function StartInterview() {
         className="relative w-[95%] lg:w-[85%] h-full lg:h-[95vh] mx-auto px-4 py-10 lg:px-24 lg:py-24 text-[#1d1d1f] bg-white rounded-4xl flex flex-col justify-center items-center overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.12)]"
       >
         <h2 className="pb-2 lg:pb-4 text-4xl md:text-5xl lg:text-7xl font-semibold text-center">
-          Start the Interview
+          Start the Session
         </h2>
 
         <p className="max-w-4xl pb-6 lg:pb-12 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold text-center">
-          This is a demo of our video proctoring system. Instead of a
-          candidate's video, your own camera feed will be visible so you can
-          explore how the checks and warnings work in real time.
+          This is a demo version of the{" "}
+          <span className="text-[#1d1d1f]">video proctoring system</span>. Your
+          own camera feed will appear instead of a candidate's, allowing you to
+          explore how the system detects activities, issues alerts, and
+          generates reports — all in{" "}
+          <span className="text-[#1d1d1f]">real time</span>.
         </p>
 
         <form
@@ -70,11 +73,11 @@ export default function StartInterview() {
           className="w-full lg:max-w-max lg:min-w-2xl grid lg:grid-cols-2 gap-2 md:p-6"
         >
           <div className="flex flex-col gap-2">
-            {/* interview title */}
+            {/* session title */}
             <div className="floating-input">
               <input
                 {...register("title", {
-                  required: "Interview title is required",
+                  required: "Session title is required",
                 })}
                 placeholder=" "
                 className={`border-2 rounded-2xl focus:border-[#86868b] duration-300 outline-none ${
@@ -82,7 +85,7 @@ export default function StartInterview() {
                 }`}
               />
 
-              <label>Interview Title</label>
+              <label>Session Title</label>
             </div>
 
             {errors.title?.message && (
@@ -112,17 +115,19 @@ export default function StartInterview() {
               </p>
             )}
 
-            {/* interviewer name */}
+            {/* interviewer / administrator name */}
             <div className="floating-input">
               <input
-                {...register("interviewerName")}
+                {...register("interviewerName", {
+                  required: "Administrator name is required",
+                })}
                 placeholder=" "
                 className={`border-2 rounded-2xl focus:border-[#86868b] duration-300 outline-none ${
                   errors.interviewerName ? "border-red-500" : "border-[#d1d5db]"
                 }`}
               />
 
-              <label>Interviewer Name</label>
+              <label>Administrator Name</label>
 
               {errors.interviewerName?.message && (
                 <p className="ml-2 text-sm text-red-500">
@@ -137,7 +142,11 @@ export default function StartInterview() {
                 type="number"
                 {...register("duration", {
                   min: 1,
-                  required: "Interview duration is required",
+                  required: "Session duration is required",
+                  max: {
+                    value: 180,
+                    message: "Maximum duration is 180 minutes",
+                  },
                 })}
                 placeholder=" "
                 className={`border-2 rounded-2xl focus:border-[#86868b] duration-300 outline-none ${
@@ -145,7 +154,7 @@ export default function StartInterview() {
                 }`}
               />
 
-              <label>Duration e.g. 30</label>
+              <label>Duration (minutes)</label>
 
               {errors.duration?.message && (
                 <p className="ml-2 text-sm text-red-500">
@@ -165,14 +174,18 @@ export default function StartInterview() {
                 placeholder=" "
               />
 
-              <label>Some context (optional)</label>
+              <label>Additional Context (optional)</label>
             </div>
 
             <button
               type="submit"
-              className="lg:text-lg bg-[#e8e8ed94] text-[#1d1d1f] py-2.5  hover:bg-[#e8e8edd7] rounded-2xl cursor-pointer duration-300"
+              className={`lg:text-lg  text-[#1d1d1f] py-2.5 rounded-2xl cursor-pointer duration-300 ${
+                isValid
+                  ? "bg-[#1d1d1f] text-white"
+                  : "bg-[#e8e8ed94] hover:bg-[#e8e8edd7]"
+              }`}
             >
-              Start Interview
+              Start Session
             </button>
           </div>
         </form>

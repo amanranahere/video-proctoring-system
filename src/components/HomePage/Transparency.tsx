@@ -10,17 +10,19 @@ const modalData = [
     body: (
       <>
         <p>
-          To demonstrate how the prototype works, the system asks for camera
-          permission so you can see your own video as if you were a candidate.
+          This prototype requests camera access only to demonstrate how
+          monitoring features work — letting you see your own video just like a
+          candidate would during a session.
         </p>
         <p>
-          You also have the option to record this video, but any recording is
-          saved only on your device — we never have access to it.
+          Recording is optional, and any video you choose to record is stored
+          solely on your device. No data or video is uploaded or saved on any
+          server.
         </p>
         <p>
-          The video stream itself is processed securely in real time and is not
-          stored on any server. This ensures you can explore the monitoring
-          features while remaining fully in control of your data.
+          All processing happens in real time within your browser, ensuring you
+          stay in complete control of your data and privacy throughout the
+          experience.
         </p>
       </>
     ),
@@ -30,18 +32,17 @@ const modalData = [
     body: (
       <>
         <p>
-          We designed this prototype so that every check and alert is visible to
-          you.
+          Every check and event in the system is visible to you — there are no
+          hidden background processes or silent detections.
         </p>
         <p>
-          Instead of running hidden background processes, the system openly
-          shows when a warning is triggered — for example, if multiple faces
-          appear in the camera view or if the user looks away for too long.
+          When an alert is triggered, such as when multiple faces appear or the
+          user looks away, it's clearly shown in the interface so you always
+          understand what's being detected and why.
         </p>
         <p>
-          By presenting these events clearly, you can see exactly what the
-          system detects and why, creating a transparent and trustworthy
-          experience.
+          This open approach keeps the experience clear and honest, ensuring you
+          always know what's happening in real time.
         </p>
       </>
     ),
@@ -51,18 +52,16 @@ const modalData = [
     body: (
       <>
         <p>
-          Our checks are powered by open-source technologies like TensorFlow
-          (using an npm package) and MediaPipe (loaded via CDN). These tools are
-          industry-trusted and apply the same algorithms consistently to every
-          candidate.
+          The system uses open-source technologies like TensorFlow (via npm) and
+          MediaPipe (via CDN) for real-time detection and analysis.
         </p>
         <p>
-          Because we rely on open and widely used frameworks, the system ensures
-          fairness and reduces bias.
+          These computer-vision frameworks are widely adopted and apply the same
+          logic to every user, ensuring consistency and minimizing bias.
         </p>
         <p>
-          This way, every candidate is evaluated under the same conditions,
-          creating a level playing field without hidden advantages.
+          Because the same conditions and algorithms are applied universally,
+          every candidate is evaluated fairly and transparently.
         </p>
       </>
     ),
@@ -97,9 +96,9 @@ export default function Transparency() {
         viewport={{ once: true }}
         className="max-w-4xl pb-6 lg:pb-12 md:mx-8 lg:mx-0 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance"
       >
-        We believe <span className="text-[#1d1d1f]">confidence</span> is earned
-        by being <span className="text-[#1d1d1f]">open</span> about how the
-        system works and by protecting what matters most —{" "}
+        We believe confidence is built through{" "}
+        <span className="text-[#1d1d1f]">openness</span>, by showing how the
+        system works and by protecting what matters most &mdash;{" "}
         <span className="text-[#1d1d1f]">your privacy</span>.
       </motion.p>
 

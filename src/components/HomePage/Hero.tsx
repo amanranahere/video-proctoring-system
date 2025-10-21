@@ -63,7 +63,7 @@ export default function Hero() {
 
   const scale = useTransform(scrollY, [80, 440], [1, 0.83]);
   const smoothScaleMotion = useSpring(scale, { stiffness: 800, damping: 50 });
-  const borderRadiusMotion = useTransform(scrollY, [80, 440], ["0rem", "2rem"]);
+  const borderRadiusMotion = useTransform(scrollY, [80, 440], ["0rem", "3rem"]);
 
   const borderRadius = isLg ? borderRadiusMotion : "0rem";
   const smoothScale = isLg ? smoothScaleMotion : 1;
@@ -143,21 +143,21 @@ export default function Hero() {
           opacity: { duration: 1, delay: 0.3, ease: "easeOut" },
           y: { duration: 0.8, ease: "easeOut" },
         }}
-        className="grid lg:grid-cols-5 mx-4 md:mx-12 lg:mx-28 pt-20 pb-10 lg:pt-40 lg:pb-24"
+        className="grid lg:grid-cols-7 mx-4 md:mx-12 lg:mx-28 pt-20 pb-10 lg:pt-40 lg:pb-24"
       >
-        <h1 className="col-span-3 text-4xl md:text-5xl lg:text-7xl font-extrabold">
+        <h1 className="col-span-4 text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter">
           Video <br />
-          Proctoring System
+          Proctoring &nbsp;System
         </h1>
 
-        <p className="col-span-2 text-[#86868b] max-w-4xl mx-auto mt-3 text-lg lg:text-xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold">
-          A modern video proctoring system designed to demonstrate how{" "}
-          <span className="text-[#1d1d1f]">remote candidates</span> can be
-          monitored in real time. Using{" "}
-          <span className="text-[#1d1d1f]">computer vision checks</span>, it
-          showcases how suspicious activities are detected during
-          <span className="text-[#1d1d1f]"> online exams</span> and{" "}
-          <span className="text-[#1d1d1f]">interviews</span>.
+        <p className="col-span-3 text-[#86868b] max-w-4xl mx-auto mt-3 text-lg lg:text-xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold">
+          Designed to demonstrate how{" "}
+          <span className="text-[#1d1d1f]">automated monitoring</span> can
+          ensure fairness and integrity in remote assessments, this system uses{" "}
+          <span className="text-[#1d1d1f]">computer vision</span> to monitor
+          candidates in real time and{" "}
+          <span className="text-[#1d1d1f]">detect suspicious activities</span>{" "}
+          like face absence, multiple faces, or unauthorized devices.
         </p>
       </motion.div>
 

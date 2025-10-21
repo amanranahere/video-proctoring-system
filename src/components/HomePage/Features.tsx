@@ -9,27 +9,27 @@ const features = [
   {
     name: "Live Streaming",
     paragraph:
-      "Monitor candidates in real-time with a clear video feed that ensures transparency during interviews or exams.",
+      "Monitor candidates live with a clear and stable video feed, ensuring full transparency throughout the session.",
   },
   {
     name: "Activity Detection",
     paragraph:
-      "Detect suspicious activities such as multiple faces, mobile phone usage, or unusual movements automatically.",
+      "Automatically detect suspicious behavior such as multiple faces, device usage, or unusual movements.",
   },
   {
     name: "Real-Time Alerts",
     paragraph:
-      "Receive instant logs and warnings with timestamps whenever suspicious activity is detected.",
+      "Stay updated with instant alerts and detailed logs for every important event, from interview start to snapshot captures and detected activities.",
   },
   {
     name: "Proctoring Reports",
     paragraph:
-      "At the end of the session, generate and download a comprehensive report summarizing all events and alerts.",
+      "At the end of the session, view and download a detailed report summarizing all alerts, recordings, snapshots, and logged events.",
   },
   {
     name: "Session Recording",
     paragraph:
-      "Record the full interview session, making it available for post-review or evidence if needed.",
+      "Record the entire session for post-review or as evidence when needed.",
   },
   {
     name: "Snapshots",

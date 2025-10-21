@@ -5,7 +5,7 @@ import { motion, easeOut } from "motion/react";
 const data = [
   {
     number: "One",
-    heading: "Start the Interview.",
+    heading: "Start the Session.",
     paragraph:
       "Enter your details and begin. The system simulates how a candidate would join an online exam or interview.",
     image: "",
@@ -14,14 +14,14 @@ const data = [
     number: "Two",
     heading: "System Keeps Watch.",
     paragraph:
-      " Your camera feed is monitored in real time. The system checks for suspicious activity like missing faces or distractions.",
+      "Your camera feed is analyzed in real time to detect missing face, unauthorized devices, or other suspicious activity.",
     image: "",
   },
   {
     number: "Three",
     heading: "Get Warnings and Report.",
     paragraph:
-      "Receive instant alerts for issues, and at the end, view a summary report of the session.",
+      "Receive instant alerts for detected issues and a session summary at the end with all logged events.",
     image: "",
   },
 ];
@@ -72,11 +72,17 @@ export default function Working() {
         viewport={{ once: true }}
         className="max-w-4xl pb-6 lg:pb-12 md:mx-8 lg:mx-0 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance"
       >
-        The system uses{" "}
+        {/* The system uses{" "}
         <span className="text-[#1d1d1f]">real-time video analysis</span> and{" "}
         <span className="text-[#1d1d1f]">computer vision</span> techniques to
-        monitor candidates during online assessments. Here's a quick look at the
-        process.
+        monitor candidates during remote assessments. Here's a quick look at the
+        process. */}
+        The system simulates a proctored session, analyzing your camera feed in{" "}
+        <span className="text-[#1d1d1f]">real time</span> to identify key
+        events, <span className="text-[#1d1d1f]">flag potential issues</span>,
+        and finally generate a{" "}
+        <span className="text-[#1d1d1f]">detailed report</span> summarizing the
+        entire session.
       </motion.p>
 
       <motion.ul

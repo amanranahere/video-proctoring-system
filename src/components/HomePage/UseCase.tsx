@@ -9,25 +9,25 @@ const useCases = [
   {
     title: "Online Exams",
     description:
-      "Run secure online exams where the system keeps watch through the candidate's camera. It can detect if the candidate looks away too often, if someone else enters the frame, or if restricted activity happens during the test.",
+      "Ideal for conducting remote exams securely. The system continuously monitors the candidate through their webcam, detecting if they look away, leave the frame, or use external devices like phones during the test.",
     imageSrc: "/features.png",
   },
   {
-    title: "Remote Interviews",
+    title: "Virtual Interviews",
     description:
-      "Make interviews fair and reliable. The system ensures the candidate stays focused on the screen and flags interruptions or unusual behavior, helping recruiters trust the process.",
+      "Useful for interview scenarios where maintaining focus and fairness matters. The system ensures the candidate stays attentive and flags cases like absence or multiple faces detected during the session.",
     imageSrc: "/features.png",
   },
   {
-    title: "Certification Tests",
+    title: "Skill Assessments",
     description:
-      "Protect the credibility of certification programs by reducing the chances of cheating. The system monitors the candidate's presence throughout the session, making certificates more dependable.",
+      "Applicable in coding tests or timed challenges where authenticity is crucial. The system monitors the participant's presence and activity, minimizing external interference or unfair practices.",
     imageSrc: "/features.png",
   },
   {
-    title: "Training Sessions",
+    title: "Online Training & Practice",
     description:
-      "Instructors and trainers can use it to ensure learners are actively participating. The system checks for engagement and alerts when distractions or unusual activity occur during practice tests or evaluations.",
+      "Trainers can use it during online sessions to observe attentiveness. The system identifies when learners are distracted or move away, helping ensure genuine participation in learning modules.",
     imageSrc: "/features.png",
   },
 ];

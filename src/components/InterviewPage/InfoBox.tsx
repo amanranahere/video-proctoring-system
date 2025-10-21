@@ -17,7 +17,9 @@ export default function InfoBox() {
       className="w-full h-full flex flex-col gap-y-1 md:gap-y-2"
     >
       <div className="flex flex-col bg-[#2a2a2db8] px-5 py-4 md:px-6 md:py-5 rounded-3xl">
-        <span className="text-[#86868b] font-semibold text-sm">Title</span>
+        <span className="text-[#86868b] font-semibold text-sm">
+          Session Title
+        </span>
         <h2 className="text-lg lg:text-2xl font-semibold">
           {interviewData?.title}
         </h2>
@@ -46,7 +48,9 @@ export default function InfoBox() {
         onClick={toggleContextBox}
         className="flex flex-col bg-[#2a2a2db8] hover:bg-[#2a2a2deb] duration-300 p-5 md:p-6 rounded-4xl cursor-pointer select-none"
       >
-        <span className="text-[#86868b] font-semibold text-sm">Context</span>
+        <span className="text-[#86868b] font-semibold text-sm">
+          Additional Context
+        </span>
         <AnimatePresence mode="wait">
           {contextBoxOpen ? (
             <motion.p
@@ -58,7 +62,7 @@ export default function InfoBox() {
             >
               {interviewData?.context || (
                 <span className="text-base text-gray-500">
-                  No context provided.
+                  No additional context provided.
                 </span>
               )}
             </motion.p>
@@ -73,7 +77,7 @@ export default function InfoBox() {
             >
               {interviewData?.context || (
                 <span className="text-base text-gray-500">
-                  No context provided.
+                  No additional context provided.
                 </span>
               )}
             </motion.p>

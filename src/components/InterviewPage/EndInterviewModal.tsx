@@ -53,59 +53,63 @@ export default function EndInterviewModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="relative w-[90%] md:w-[70%] lg:w-[60%] h-[80%] lg:h-[90%] px-6 lg:px-14 pt-16 lg:pt-20 pb-8 lg:pb-20 bg-white rounded-4xl flex flex-col items-center gap-y-6 z-30 overflow-y-auto no-scrollbar"
+            className="relative w-[95%] md:w-[70%] lg:w-[60%] h-[85%] lg:h-[90%] px-5 lg:px-14 pt-12 lg:pt-20 pb-8 lg:pb-20 bg-white rounded-4xl flex flex-col items-center gap-y-3 md:gap-y-6 z-30 overflow-y-auto no-scrollbar"
           >
             <h3 className="text-4xl lg:text-[56px] font-bold lg:leading-14 text-center">
               Interview Summary
             </h3>
 
-            <div className="max-w-max px-6 p-2 font-semibold text-[#1d1d1fd2] bg-[#f5f5f7] rounded-full">
+            <div className="max-w-max px-6 p-2 font-semibold text-sm md:text-base text-[#1d1d1fd2] bg-[#f5f5f7] rounded-full">
               ID: {interviewData?.id}
             </div>
 
-            <div className="lg:text-lg mt-8 leading-snug lg:leading-normal">
-              <p className="flex flex-col font-bold px-2 lg:px-6 border-b border-[#e5e5e5] pb-8">
-                <span className="text-lg text-[#86868b]">Interview Title</span>
-                <span className="text-2xl text-[#1d1d1f]">
+            <div className="w-full lg:text-lg mt-8 leading-snug lg:leading-normal">
+              <p className="flex flex-col font-bold px-2 md:px-6 pb-4 md:pb-8 border-b border-[#e5e5e5]">
+                <span className="md:text-lg text-[#9e9ea3]">Session Title</span>
+                <span className="text-xl md:text-2xl text-[#1d1d1f]">
                   {interviewData?.title}
                 </span>
               </p>
 
-              <div className="grid grid-cols-5 border-b border-[#e5e5e5] py-8">
+              <div className="md:grid md:grid-cols-5 border-b border-[#e5e5e5] py-4 md:py-8 space-y-6 md:space-y-0">
                 <p className="col-span-3 flex flex-col font-bold px-2 lg:px-6">
-                  <span className="text-lg text-[#86868b]">Candidate Name</span>
-                  <span className="text-2xl text-[#1d1d1f]">
+                  <span className="md:text-lg text-[#9e9ea3]">
+                    Candidate Name
+                  </span>
+                  <span className="text-xl md:text-2xl text-[#1d1d1f]">
                     {interviewData?.candidateName}
                   </span>
                 </p>
 
                 <p className="col-span-2 flex flex-col font-bold px-2 lg:px-6">
-                  <span className="text-lg text-[#86868b]">
-                    Interviwer Name
+                  <span className="md:text-lg text-[#9e9ea3]">
+                    Administrator Name
                   </span>
-                  <span className="text-2xl text-[#1d1d1f]">
+                  <span className="text-xl md:text-2xl text-[#1d1d1f]">
                     {interviewData?.interviewerName}
                   </span>
                 </p>
               </div>
 
-              <p className="flex flex-col font-bold px-2 lg:px-6 border-b border-[#e5e5e5] py-8">
-                <span className="text-lg text-[#86868b]">Duration</span>
-                <span className="text-2xl text-[#1d1d1f]">
+              <p className="flex flex-col font-bold px-2 lg:px-6 border-b border-[#e5e5e5] py-4 md:py-8">
+                <span className="md:text-lg text-[#9e9ea3]">Duration</span>
+                <span className="text-xl md:text-2xl text-[#1d1d1f]">
                   {interviewData?.duration} mins
                 </span>
               </p>
 
-              <p className="flex flex-col font-bold px-2 lg:px-6 border-b border-[#e5e5e5] py-8">
-                <span className="text-lg text-[#86868b]">Context</span>
-                <span className="text-2xl text-[#1d1d1f]">
-                  {interviewData?.context}
+              <p className="flex flex-col font-bold px-2 lg:px-6 border-b border-[#e5e5e5] py-4 md:py-8">
+                <span className="md:text-lg text-[#9e9ea3]">
+                  Additional Context
+                </span>
+                <span className="text-xl md:text-2xl text-[#1d1d1f]">
+                  {interviewData?.context ? interviewData?.context : "-"}
                 </span>
               </p>
 
               {/* logs */}
               <div className="flex flex-col gap-y-2 mt-8 mb-10">
-                <span className="text-lg md:text-2xl text-[#86868b] font-bold px-2 lg:px-6">
+                <span className="text-lg md:text-2xl text-[#9e9ea3] font-bold px-2 lg:px-6">
                   Logs
                 </span>
 
@@ -135,8 +139,11 @@ export default function EndInterviewModal() {
 
               {/* snapshots */}
               <div className="flex flex-col gap-y-2 mb-10">
-                <span className="text-lg md:text-2xl text-[#86868b] font-bold px-2 lg:px-6">
+                <span className="text-lg md:text-2xl text-[#9e9ea3] font-bold px-2 lg:px-6">
                   Snapshots
+                  <sup className="ml-0.5 text-sm font-semibold align-super text-[#1d1d1f]">
+                    {snapshots.length === 0 ? null : snapshots.length}
+                  </sup>
                 </span>
 
                 <div className="h-[300px] md:h-[400px] flex flex-wrap gap-1 p-1 md:p-5 bg-[#f5f5f7] border-8 border-[#f5f5f7] rounded-4xl overflow-y-auto no-scrollbar overflow-hidden">
@@ -175,14 +182,17 @@ export default function EndInterviewModal() {
 
               {/* recordings */}
               <div className="flex flex-col gap-y-2 mb-20">
-                <span className="text-lg md:text-2xl text-[#86868b] font-bold px-2 lg:px-6">
+                <span className="text-lg md:text-2xl text-[#9e9ea3] font-bold px-2 lg:px-6">
                   Recordings
+                  <sup className="ml-0.5 text-sm font-semibold align-super text-[#1d1d1f]">
+                    {recordings.length === 0 ? null : recordings.length}
+                  </sup>
                 </span>
 
                 <div className="h-[300px] md:h-[400px] flex flex-wrap gap-1 p-1 md:p-5 bg-[#f5f5f7] border-8 border-[#f5f5f7] rounded-4xl overflow-y-auto no-scrollbar overflow-hidden">
                   {recordings.length === 0 ? (
                     <div className="w-full h-full flex justify-center items-center text-[#5a5a5a] font-semibold">
-                      No recording available
+                      No recordings available
                     </div>
                   ) : (
                     recordings.map((url, index) => (
@@ -212,7 +222,7 @@ export default function EndInterviewModal() {
               <div className="flex justify-center items-center gap-x-6">
                 <button
                   onClick={downloadReport}
-                  className="px-8 py-3 text-base font-semibold bg-[#1d1d1f] text-white hover:bg-black rounded-full transition-all duration-200 cursor-pointer"
+                  className="px-6 md:px-8 py-3 text-sm md:text-base font-semibold bg-[#1d1d1f] text-white hover:bg-black rounded-full transition-all duration-200 cursor-pointer"
                 >
                   Download Report
                 </button>
@@ -225,7 +235,7 @@ export default function EndInterviewModal() {
                     clearInterviewData();
                     router.push("/");
                   }}
-                  className="px-8 py-3 text-base font-semibold bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed] rounded-full transition-all duration-200 cursor-pointer"
+                  className="px-6 md:px-8 py-3 text-sm md:text-base font-semibold bg-[#f5f5f7] text-[#1d1d1f] hover:bg-[#e8e8ed] rounded-full transition-all duration-200 cursor-pointer"
                 >
                   Close
                 </button>
