@@ -58,7 +58,7 @@ export default function LogBox() {
   };
 
   return (
-    <div className="min-h-[80vh] lg:min-h-[89vh] mb-5 w-full rounded-4xl bg-[#2a2a2db8] overflow-hidden overflow-y-auto no-scrollbar">
+    <div className="min-h-[80vh] max-h-[80vh] lg:min-h-[89vh] lg:max-h-[89vh] mb-5 w-full rounded-4xl bg-[#2a2a2db8] overflow-hidden overflow-y-auto no-scrollbar">
       {/* header */}
       <div className="sticky top-0 flex justify-between items-center px-2 md:px-2.5 py-4  backdrop-blur-sm">
         <h3 className="pl-3 text-lg lg:text-2xl font-bold">Logs</h3>

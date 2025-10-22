@@ -1,13 +1,17 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLogStore } from "@/store/logStore";
 import { useInterviewStore } from "@/store/InterviewStore";
 import { Download } from "lucide-react";
+import jsPDF from "jspdf";
+import { ChevronDown } from "lucide-react";
 
 export default function EndInterviewModal() {
   const router = useRouter();
+  const [openOptions, setOpenOptions] = useState(false);
 
   const {
     showEndModal,
@@ -28,20 +32,87 @@ export default function EndInterviewModal() {
     a.click();
   };
 
-  const downloadReport = () => {
-    const report = {
-      candidate: "Candidate Name",
-      interviewer: "Interviewer Name",
-      title: "Interview Title",
-      duration: "00:45:00",
-      logs,
-    };
+  const report = {
+    id: interviewData?.id,
+    candidate: interviewData?.candidateName,
+    administrator: interviewData?.interviewerName,
+    title: interviewData?.title,
+    duration: interviewData?.duration,
+    context: interviewData?.context,
+    logs,
+  };
 
+  const downloadJSONReport = () => {
     const blob = new Blob([JSON.stringify(report, null, 2)], {
       type: "application/json",
     });
     const url = URL.createObjectURL(blob);
     handleDownload(url, `interview-report-${Date.now()}.json`);
+  };
+
+  const downloadPDFReport = () => {
+    const doc = new jsPDF();
+
+    // heading
+    doc.setFontSize(20);
+    const pageWidth = doc.internal.pageSize.getHeight();
+    doc.text("Interview Report", 25, 25);
+
+    // details
+    doc.setFontSize(12);
+    const startX = 25;
+    let y = 45;
+    const labelWidth = 45;
+
+    const drawRow = (label: string, value: string) => {
+      doc.setFont("helvetica", "bold");
+      doc.text(`${label}:`, startX, y);
+
+      doc.setFont("helvetica", "normal");
+      const valueX = startX + labelWidth;
+      const lineHeight = 7;
+
+      // wrap text if too long
+      const splitText = doc.splitTextToSize(value, pageWidth - valueX - 100);
+      doc.text(splitText, valueX, y);
+
+      y += splitText.length * lineHeight;
+    };
+
+    drawRow("Session Title", report.title || "-");
+    drawRow("Session ID", report.id || "-");
+    drawRow("Candidate Name", report.candidate || "-");
+    drawRow("Administrator Name", report.candidate || "-");
+    drawRow("Duration", `${report.duration || "-"} mins`);
+    drawRow("Context", report.context || "-");
+
+    // logs
+    y += 10;
+    doc.setFont("helvetica", "bold");
+    doc.text("Logs:", startX, y);
+    y += 8;
+
+    doc.setFont("helvetica", "normal");
+    const lineHeight = 6;
+    if (report.logs && report.logs.length > 0) {
+      report.logs.forEach((log) => {
+        const logText = `[${log.time}] ${log.rule}`;
+        const splitLog = doc.splitTextToSize(logText, pageWidth - startX * 2);
+
+        if (y + splitLog.length * lineHeight > 280) {
+          doc.addPage();
+          y = 20;
+        }
+
+        doc.text(splitLog, startX, y);
+        y += splitLog.length * lineHeight;
+      });
+    } else {
+      doc.text("No logs available.", startX, y);
+    }
+
+    // save pdf
+    doc.save(`interview-report-${Date.now()}.pdf`);
   };
 
   return (
@@ -53,7 +124,7 @@ export default function EndInterviewModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="relative w-[95%] md:w-[70%] lg:w-[60%] h-[85%] lg:h-[90%] px-5 lg:px-14 pt-12 lg:pt-20 pb-8 lg:pb-20 bg-white rounded-4xl flex flex-col items-center gap-y-3 md:gap-y-6 z-30 overflow-y-auto no-scrollbar"
+            className="relative w-[95%] md:w-[70%] lg:w-[60%] h-[85%] lg:h-[90%] px-5 lg:px-14 pt-12 lg:pt-20 pb-32 lg:pb-32 bg-white rounded-4xl flex flex-col items-center gap-y-3 md:gap-y-6 z-30 overflow-y-auto no-scrollbar"
           >
             <h3 className="text-4xl lg:text-[56px] font-bold lg:leading-14 text-center">
               Interview Summary
@@ -219,13 +290,60 @@ export default function EndInterviewModal() {
                 </div>
               </div>
 
-              <div className="flex justify-center items-center gap-x-6">
-                <button
-                  onClick={downloadReport}
-                  className="px-6 md:px-8 py-3 text-sm md:text-base font-semibold bg-[#1d1d1f] text-white hover:bg-black rounded-full transition-all duration-200 cursor-pointer"
-                >
-                  Download Report
-                </button>
+              <div className="flex justify-center items-start gap-x-6">
+                <div className="relative flex flex-col justify-center">
+                  <button
+                    onClick={() => setOpenOptions((prev) => !prev)}
+                    className="pl-5 pr-3 md:pl-6 md:pr-4 py-3 text-sm md:text-base font-semibold bg-[#1d1d1f] text-white hover:bg-black rounded-full transition-all duration-200 cursor-pointer flex justify-center items-center gap-x-3 z-10"
+                  >
+                    <span>Download Report</span>
+                    <ChevronDown
+                      size={20}
+                      strokeWidth={2}
+                      className={`duration-700 ${
+                        openOptions ? "rotate-x-180" : "rotate-x-0"
+                      }`}
+                    />
+                  </button>
+
+                  <AnimatePresence mode="wait">
+                    {openOptions && (
+                      <motion.div
+                        initial={{ opacity: 1, scaleY: 0 }}
+                        animate={{ opacity: 1, scaleY: 1 }}
+                        exit={{ opacity: 1, scaleY: 0 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 220,
+                          damping: 18,
+                          opacity: { duration: 0.4, ease: "easeInOut" },
+                          y: { duration: 0.4, ease: "easeInOut" },
+                        }}
+                        className="w-full absolute top-7 pt-7 p-2 bg-[#2d2d2d] text-white flex flex-col justify-end items-center rounded-b-3xl z-0 origin-top"
+                      >
+                        <button
+                          onClick={() => {
+                            downloadPDFReport();
+                            setOpenOptions(false);
+                          }}
+                          className="w-full p-1.5 text-sm font-semibold hover:bg-[#3a3a3a] duration-200 rounded-full cursor-pointer"
+                        >
+                          PDF Format
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            downloadJSONReport();
+                            setOpenOptions(false);
+                          }}
+                          className="w-full p-1.5 text-sm font-semibold hover:bg-[#3a3a3a] duration-200 rounded-full cursor-pointer"
+                        >
+                          JSON Format
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
                 <button
                   onClick={() => {

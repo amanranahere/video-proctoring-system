@@ -32,7 +32,7 @@ export default function Navbar() {
         }}
         className="fixed inset-x-0 top-0 z-[99]"
       >
-        <div className="fixed inset-x-0 top-0 max-h-max flex justify-between items-center px-4 lg:px-10 bg-black/50 backdrop-blur-sm overflow-hidden z-[99]">
+        <div className="fixed inset-x-0 top-0 max-h-max flex justify-between items-center pl-4 pr-4 lg:pl-10 lg:pr-5 py-1 bg-black/50 backdrop-blur-sm overflow-hidden z-[99]">
           <div className="flex gap-x-4 py-2.5">
             <div className="select-none text-[19px] font-semibold ">
               Video Proctoring System
@@ -43,7 +43,7 @@ export default function Navbar() {
             <div className="relative flex justify-center gap-x-8 text-xs text-white text-center">
               <button
                 onClick={toggleRuleBox}
-                className="text-[#d7d7de] hover:text-white duration-300 cursor-pointer"
+                className="text-[#d7d7de] font-semibold hover:text-white duration-300 cursor-pointer"
               >
                 Rules
               </button>
@@ -52,7 +52,7 @@ export default function Navbar() {
                 onClick={() => {
                   useLogStore.getState().endInterview();
                 }}
-                className="bg-red-400 hover:brightness-110 duration-300 rounded-full px-3 py-1.5 cursor-pointer"
+                className="bg-red-400 hover:brightness-110 duration-300 rounded-full font-semibold px-5 py-2 cursor-pointer"
               >
                 End Interview
               </button>
