@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, easeOut } from "motion/react";
 
 const data = [
@@ -8,21 +9,21 @@ const data = [
     heading: "Start the Session.",
     paragraph:
       "Enter your details and begin. The system simulates how a candidate would join an online exam or interview.",
-    image: "",
+    image: "/images/start-session.svg",
   },
   {
     number: "Two",
     heading: "System Keeps Watch.",
     paragraph:
       "Your camera feed is analyzed in real time to detect missing face, unauthorized devices, or other suspicious activity.",
-    image: "",
+    image: "images/system-watch.svg",
   },
   {
     number: "Three",
-    heading: "Get Warnings and Report.",
+    heading: "Session Summary.",
     paragraph:
       "Receive instant alerts for detected issues and a session summary at the end with all logged events.",
-    image: "",
+    image: "/images/final-report.svg",
   },
 ];
 
@@ -72,11 +73,6 @@ export default function Working() {
         viewport={{ once: true }}
         className="max-w-4xl pb-6 lg:pb-12 md:mx-8 lg:mx-0 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold lg:text-balance"
       >
-        {/* The system uses{" "}
-        <span className="text-[#1d1d1f]">real-time video analysis</span> and{" "}
-        <span className="text-[#1d1d1f]">computer vision</span> techniques to
-        monitor candidates during remote assessments. Here's a quick look at the
-        process. */}
         The system simulates a proctored session, analyzing your camera feed in{" "}
         <span className="text-[#1d1d1f]">real time</span> to identify key
         events, <span className="text-[#1d1d1f]">flag potential issues</span>,
@@ -96,7 +92,7 @@ export default function Working() {
           <motion.li
             variants={listVariant}
             key={index}
-            className="bg-white rounded-4xl text-[#1d1d1f] hover:scale-[1.02] duration-500"
+            className="bg-white rounded-4xl text-[#1d1d1f] hover:scale-[1.02] duration-500 flex flex-col justify-between"
           >
             <div className="p-7 md:p-5 lg:p-8 flex flex-col gap-y-1.5 lg:gap-y-2.5">
               <p className="text-sm md:text-base font-bold">{item.number}</p>
@@ -111,8 +107,8 @@ export default function Working() {
             </div>
 
             {/* image */}
-            <div className="w-full h-80 rounded-b-4xl overflow-hidden">
-              {item.image}
+            <div className="relative w-full h-70 rounded-b-4xl overflow-hidden">
+              <Image src={item.image} alt={item.number} fill />
             </div>
           </motion.li>
         ))}

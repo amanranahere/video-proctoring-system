@@ -73,7 +73,9 @@ export default function Hero() {
       {/* navbar */}
       <header className="w-full px-4 py-2.5 lg:px-32 flex justify-between items-center ">
         {/* logo */}
-        <div className="select-none">VPS</div>
+        <div className={`text-lg text-[#1d1d1f] select-none font-extrabold`}>
+          VPS
+        </div>
 
         {isLg ? (
           <ul className="flex justify-center gap-x-8">

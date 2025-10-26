@@ -10,25 +10,25 @@ const useCases = [
     title: "Online Exams",
     description:
       "Ideal for conducting remote exams securely. The system continuously monitors the candidate through their webcam, detecting if they look away, leave the frame, or use external devices like phones during the test.",
-    imageSrc: "/features.png",
+    imageSrc: "/images/online-exam.png",
   },
   {
     title: "Virtual Interviews",
     description:
       "Useful for interview scenarios where maintaining focus and fairness matters. The system ensures the candidate stays attentive and flags cases like absence or multiple faces detected during the session.",
-    imageSrc: "/features.png",
+    imageSrc: "/images/virtual-interview.webp",
   },
   {
     title: "Skill Assessments",
     description:
       "Applicable in coding tests or timed challenges where authenticity is crucial. The system monitors the participant's presence and activity, minimizing external interference or unfair practices.",
-    imageSrc: "/features.png",
+    imageSrc: "/images/skill-assessment.png",
   },
   {
     title: "Online Training & Practice",
     description:
       "Trainers can use it during online sessions to observe attentiveness. The system identifies when learners are distracted or move away, helping ensure genuine participation in learning modules.",
-    imageSrc: "/features.png",
+    imageSrc: "/images/online-training.png",
   },
 ];
 
@@ -108,7 +108,12 @@ export default function UseCase() {
                     {/* image for sm and md screens */}
                     {item.imageSrc && (
                       <div className="relative lg:hidden w-full h-[40vh] mb-5 ">
-                        <Image src={item.imageSrc} alt={item.title} fill />
+                        <Image
+                          src={item.imageSrc}
+                          alt={item.title}
+                          fill
+                          className="object-cover"
+                        />
                       </div>
                     )}
                   </motion.div>
@@ -128,12 +133,13 @@ export default function UseCase() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.2 }}
-                className="relative w-[70%] h-[70%]"
+                className="relative w-[90%] h-[70%]"
               >
                 <Image
                   src={useCases[activeIndex].imageSrc}
                   alt={useCases[activeIndex].title}
                   fill
+                  className="object-cover"
                 />
               </motion.div>
             )}
