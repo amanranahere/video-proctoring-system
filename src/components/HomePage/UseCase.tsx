@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion, easeOut } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 const useCases = [
   {

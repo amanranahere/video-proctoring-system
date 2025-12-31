@@ -53,7 +53,7 @@ export default function Navbar() {
   const { width } = useWindowSize();
   const isLg = width >= 1024;
 
-  const { endInterview } = useLogStore();
+  // const { endInterview } = useLogStore();
 
   useEffect(() => {
     const sectionIds = [

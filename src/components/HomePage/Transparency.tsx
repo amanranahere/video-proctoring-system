@@ -37,12 +37,12 @@ const modalData = [
         </p>
         <p>
           When an alert is triggered, such as when multiple faces appear or the
-          user looks away, it's clearly shown in the interface so you always
-          understand what's being detected and why.
+          user looks away, it&apos;s clearly shown in the interface so you always
+          understand what&apos;s being detected and why.
         </p>
         <p>
           This open approach keeps the experience clear and honest, ensuring you
-          always know what's happening in real time.
+          always know what&apos;s happening in real time.
         </p>
       </>
     ),

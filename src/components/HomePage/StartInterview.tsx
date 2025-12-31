@@ -62,7 +62,7 @@ export default function StartInterview() {
         <p className="max-w-4xl pb-6 lg:pb-12 text-[#86868b] text-lg lg:text-2xl leading-6 lg:leading-tight tracking-tighter lg:tracking-tight font-semibold text-center">
           This is a demo version of the{" "}
           <span className="text-[#1d1d1f]">video proctoring system</span>. Your
-          own camera feed will appear instead of a candidate's, allowing you to
+          own camera feed will appear instead of a candidate&apos;s, allowing you to
           explore how the system detects activities, issues alerts, and
           generates reports — all in{" "}
           <span className="text-[#1d1d1f]">real time</span>.

@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
-
 import Navbar from "@/components/InterviewPage/Navbar";
 import VideoCapture from "@/components/InterviewPage/VideoCapture";
 import InfoBox from "@/components/InterviewPage/InfoBox";
