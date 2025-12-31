@@ -4,7 +4,8 @@ import { useRef, useEffect, useState } from "react";
 import { Clapperboard, Square, Play, Pause, Camera, Check } from "lucide-react";
 import { useLogStore } from "@/store/logStore";
 import { AnimatePresence, motion } from "motion/react";
-import InterviewTimer from "@/utils/InterviewTimer";
+// import InterviewTimer from "@/utils/InterviewTimer";
+import InterviewTimer from "../../utils/InterviewTimer"
 import getTimeStamp from "@/utils/getTimeStamp";
 
 export default function ControlPanel() {
