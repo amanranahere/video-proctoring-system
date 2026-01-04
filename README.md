@@ -37,6 +37,6 @@ This project demonstrates a method of proctoring that could be integrated into:
 
 ## 🚀 Live Deployment
 
-Check out live site: [Video-Proctoring-System-Prototype2](https://video-proctoring-system-prototype2.vercel.app/)
+Check out live site: [Video-Proctoring-System](https://video-proctoring-project.vercel.app/)
 
 
